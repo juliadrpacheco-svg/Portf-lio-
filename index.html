@@ -1,901 +1,1059 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfólio Julia Duarte</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Julia Duarte · engenheira que constrói com IA</title>
+<meta name="description" content="Portfólio da Julia Duarte: engenharia de automação, estratégia e muita IA. Agentes, machine learning, automações e vibe coding.">
+<meta property="og:title" content="Julia Duarte · engenheira que constrói com IA">
+<meta property="og:description" content="Clica numa caixa. A garra busca o projeto pra você.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='8' y='22' width='84' height='62' rx='8' fill='%23FF4A36'/><rect x='8' y='22' width='84' height='14' fill='%23D2321F'/><rect x='46' y='4' width='8' height='20' fill='%230D0E1A'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Plano visual: portal iFood. Nav branca, mosaico de blocos carmim na abertura, titulo claro e grande,
-   cartao branco com raio de 8px, botoes vermelhos retangulares. Casos em duas colunas (narrativa e interface). */
 :root{
-  --red:#EA1D2C; --red-d:#C4121F; --crimson:#D6002A; --wine:#7A0016;
-  --ink:#3E3E3E; --soft:#717171; --bg:#FFFFFF; --alt:#F7F7F7; --line:#E5E5E5; --tint:#FDECEE;
-  --ok:#2E9E5B; --warn:#E39A0B;
-  --display:'Nunito','Trebuchet MS',Arial,sans-serif;
-  --body:'Nunito Sans','Segoe UI',Arial,sans-serif;
-  --mono:'JetBrains Mono',Consolas,monospace;
-  --r:8px; --shadow:0 2px 12px rgba(0,0,0,.08);
-  color-scheme: light;
+  --blue:#2337FF;--blue2:#1A29C9;--navy:#10166B;--ink:#0D0E1A;--cream:#FFF6EA;--paper:#FFFDF8;
+  --red:#FF4A36;--orange:#FF8B1F;--yellow:#FFD43B;--green:#1FBF7C;--sky:#9CCBFF;--pink:#FF86BE;--violet:#8B6CFF;
+  --line:rgba(13,14,26,.12);--mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,p{margin:0}
-h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.15}
+body{font-family:'Bricolage Grotesque',system-ui,sans-serif;background:var(--cream);color:var(--ink);font-size:17px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-section{padding:72px 0;scroll-margin-top:76px}
-.alt{background:var(--alt)}
-.eyebrow{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
-.sec-title{font-size:clamp(28px,3.8vw,40px);font-weight:700;max-width:860px}
-.sec-sub{color:var(--soft);margin:12px 0 32px;font-size:18px;max-width:700px}
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+.eyebrow:before{content:"";width:10px;height:10px;border-radius:3px;background:currentColor}
+h2.big{font-size:clamp(40px,6.4vw,84px);line-height:.95;letter-spacing:-.035em;font-weight:800;margin:14px 0 18px}
+.lead{font-size:clamp(18px,1.6vw,21px);max-width:640px;opacity:.82}
+section{position:relative}
+.pad{padding:110px 0}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
 
-/* nav */
-nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
-.brand{font-family:var(--display);font-weight:900;font-style:italic;font-size:26px;color:var(--red);text-decoration:none;letter-spacing:-.02em}
-.links{display:flex;gap:30px;align-items:center}
-.links a.l{font-size:14.5px;text-decoration:none;color:var(--ink)}
-.links a.l:hover{color:var(--red)}
-.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--r);padding:11px 20px;font-family:var(--display);font-weight:800;font-size:14.5px;text-decoration:none;border:2px solid var(--red);cursor:pointer;transition:background .15s}
-.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-d);border-color:var(--red-d)}
-.btn-out{background:#fff;color:var(--red)}.btn-out:hover{background:var(--tint)}
-.btn-block{width:100%;padding:15px}
+/* ---------- nav ---------- */
+nav.top{position:fixed;inset:14px 14px auto 14px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(255,253,248,.82);backdrop-filter:blur(14px);border:1px solid var(--line);transition:transform .4s var(--ease)}
+nav.top.hide{transform:translateY(-120%)}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:6px}
+.logo i{display:inline-block;width:10px;height:20px;background:var(--red);animation:blink 1s steps(1) infinite;border-radius:2px}
+@keyframes blink{50%{opacity:0}}
+.links{display:flex;gap:2px}
+.links a{text-decoration:none;font-weight:600;font-size:15px;padding:9px 14px;border-radius:999px;transition:background .2s}
+.links a:hover{background:rgba(13,14,26,.07)}
+.termbtn{font-family:var(--mono);font-size:13px;font-weight:600;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;display:flex;gap:8px;align-items:center}
+.termbtn kbd{font-family:var(--mono);background:rgba(255,255,255,.16);padding:1px 6px;border-radius:5px;font-size:11px}
+@media(max-width:860px){.links{display:none}}
 
-/* hero */
-.hero{position:relative;overflow:hidden;background:var(--wine);color:#fff}
-.mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr)}
-.mosaic div{display:grid;place-items:center}
-.mosaic svg{width:46px;height:46px;opacity:.28;stroke:#fff;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(60,0,10,.78) 0%,rgba(60,0,10,.45) 55%,rgba(60,0,10,.1) 100%)}
-.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;padding:72px 20px}
-.hero h1{font-size:clamp(36px,5vw,58px);font-weight:400;line-height:1.12;letter-spacing:-.01em}
-.hero h1 b{font-weight:800}
-.hero .sub{font-size:20px;margin-top:20px;max-width:560px;font-weight:600}
-.pcard{background:#fff;color:var(--ink);border-radius:var(--r);padding:30px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.pcard h2{font-size:22px;font-weight:700;margin-bottom:4px}
-.pcard .lead{color:var(--soft);margin-bottom:18px;font-size:15px}
-.rows{display:grid;gap:0;margin-bottom:20px}
-.rows div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
-.rows span{color:var(--soft)}
-.rows b{text-align:right;font-weight:700}
+/* ---------- hero ---------- */
+#topo{background:var(--blue);color:#fff;padding-top:110px;overflow:hidden;min-height:100vh;display:flex;flex-direction:column}
+.hero-head{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:end}
+.hero-head h1{font-size:clamp(28px,3.4vw,46px);line-height:1.05;letter-spacing:-.03em;font-weight:700;max-width:640px}
+.hero-head h1 em{font-style:normal;background:var(--yellow);color:var(--ink);padding:0 .18em;border-radius:.18em;display:inline-block;transform:rotate(-1.5deg)}
+.modes{justify-self:end;max-width:380px;width:100%}
+.switch{display:inline-flex;background:rgba(0,0,0,.22);border-radius:999px;padding:4px;position:relative;margin-bottom:12px}
+.switch button{position:relative;z-index:1;padding:9px 16px;font-weight:700;font-size:14px;border-radius:999px;transition:color .3s}
+.switch .knob{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:#fff;transition:all .45s var(--ease)}
+.switch button[aria-pressed="true"]{color:var(--blue)}
+.modetxt{font-size:16px;line-height:1.45;min-height:72px;opacity:.95}
+.modetxt small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;opacity:.65;margin-bottom:4px;text-transform:uppercase}
+@media(max-width:860px){.hero-head{grid-template-columns:1fr}.modes{justify-self:start}}
+@media(max-width:520px){#topo{min-height:auto}.stage{min-height:430px;flex:none}.crate{padding:7px 8px}.crate .cid span:last-child{display:none}.crate .clab{font-size:12.5px}.hint{font-size:10.5px}.bigname{top:30px}}
 
-/* indicadores */
-.strip{background:#fff;border-bottom:1px solid var(--line)}
-.strip-in{display:grid;grid-template-columns:repeat(4,1fr)}
-.kpi{padding:28px 24px;border-left:1px solid var(--line)}
-.kpi:first-child{border-left:none}
-.kpi b{display:block;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
-.kpi span{display:block;margin-top:8px;font-size:14.5px;color:var(--ink)}
+.stage{position:relative;flex:1;width:100%;min-height:520px;margin-top:10px}
+.bigname{position:absolute;left:0;right:0;top:46px;text-align:center;font-weight:800;font-size:clamp(120px,27vw,390px);line-height:.8;letter-spacing:-.06em;color:#fff;user-select:none;z-index:1;white-space:nowrap}
+.bigname span{display:inline-block;transition:transform .5s var(--ease),color .3s}
+.bigname span:hover{transform:translateY(-.08em) rotate(-4deg);color:var(--yellow)}
+.yard{position:absolute;inset:0;z-index:2}
+.rail{position:absolute;left:-20px;right:-20px;top:0;height:14px;background:repeating-linear-gradient(90deg,#d9dcef 0 26px,#b9bedc 26px 30px);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.trolley{position:absolute;top:0;left:0;width:64px;display:flex;flex-direction:column;align-items:center;transform:translateX(40px);transition:transform .7s var(--ease);z-index:6;pointer-events:none}
+.trolley .car{width:64px;height:24px;background:var(--yellow);border-radius:6px;border:3px solid var(--ink);position:relative}
+.trolley .car:after{content:"";position:absolute;left:8px;right:8px;top:5px;height:4px;background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 10px)}
+.cable{width:3px;height:26px;background:#e8eaf7;transition:height .6s var(--ease)}
+.claw{width:52px;height:22px;position:relative}
+.claw:before{content:"";position:absolute;left:10px;right:10px;top:0;height:9px;background:var(--ink);border-radius:3px}
+.claw b{position:absolute;top:6px;width:7px;height:17px;background:var(--ink);border-radius:3px;transition:transform .25s}
+.claw b:first-child{left:6px;transform:rotate(22deg);transform-origin:top}
+.claw b:last-child{right:6px;transform:rotate(-22deg);transform-origin:top}
+.claw.closed b:first-child{transform:rotate(0)}
+.claw.closed b:last-child{transform:rotate(0)}
+.crate{position:absolute;border-radius:7px;color:#fff;text-align:left;padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .6s var(--ease),filter .2s,box-shadow .25s;box-shadow:0 10px 0 rgba(0,0,0,.18);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.0) 0 9px,rgba(0,0,0,.13) 9px 12px);border:3px solid rgba(0,0,0,.25);z-index:3;overflow:hidden}
+.crate:before{content:"";position:absolute;inset:0;border:2px solid rgba(255,255,255,.18);border-radius:4px;pointer-events:none}
+.crate .cid{font-family:var(--mono);font-size:10px;opacity:.85;letter-spacing:.06em;display:flex;justify-content:space-between}
+.crate .clab{font-weight:800;font-size:clamp(13px,1.45vw,19px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}
+.crate .copen{font-family:var(--mono);font-size:10px;position:absolute;right:8px;bottom:6px;opacity:0;transition:opacity .2s}
+.crate:hover{filter:brightness(1.08)}
+.crate:hover .copen{opacity:.9}
+.crate.held{z-index:7;box-shadow:0 30px 30px rgba(0,0,0,.25)}
+.crate.dark{color:#fff}.crate.lightc{color:var(--ink)}
+.hint{position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:999px;z-index:8;white-space:nowrap;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-6px)}}
+.ground{height:22px;background:repeating-linear-gradient(45deg,var(--ink) 0 14px,var(--yellow) 14px 28px)}
 
-/* competencias */
-.comp{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.comp a{display:block;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;text-decoration:none;transition:border-color .15s,box-shadow .15s}
-.comp a:hover{border-color:var(--red);box-shadow:var(--shadow)}
-.comp b{display:block;font-family:var(--display);font-size:16px;margin-bottom:4px}
-.comp span{font-size:13.5px;color:var(--soft)}
+/* ticker */
+.ticker{background:var(--ink);color:var(--cream);overflow:hidden;white-space:nowrap;padding:16px 0;font-weight:800;font-size:22px;letter-spacing:-.01em}
+.ticker .tt{display:inline-block;animation:tick 38s linear infinite}
+.ticker .tt span{margin:0 18px}
+.ticker .tt i{font-style:normal;color:var(--yellow)}
+@keyframes tick{to{transform:translateX(-50%)}}
 
-/* casos */
-.case{padding:72px 0;border-top:1px solid var(--line);scroll-margin-top:76px}
+/* ---------- caixa modal ---------- */
+.scrim{position:fixed;inset:0;background:rgba(13,14,26,.6);backdrop-filter:blur(4px);z-index:80;opacity:0;pointer-events:none;transition:opacity .35s}
+.scrim.on{opacity:1;pointer-events:auto}
+.box{position:fixed;left:50%;top:50%;width:min(820px,94vw);max-height:88vh;transform:translate(-50%,-46%) scale(.94);opacity:0;pointer-events:none;z-index:90;perspective:1600px;transition:transform .45s var(--ease),opacity .3s}
+.box.on{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}
+.box .inner{background:var(--paper);border-radius:16px;max-height:88vh;overflow:auto;position:relative;border:4px solid var(--ink)}
+.door{position:absolute;top:0;bottom:0;width:50%;z-index:5;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 12px,rgba(0,0,0,.16) 12px 16px);border:4px solid var(--ink);transition:transform 1s var(--ease) .15s;backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.door.l{left:0;transform-origin:left;border-radius:16px 0 0 16px}
+.door.r{right:0;transform-origin:right;border-radius:0 16px 16px 0}
+.door.l:after,.door.r:after{content:"";position:absolute;top:44%;width:8px;height:70px;background:var(--ink);border-radius:4px}
+.door.l:after{right:14px}.door.r:after{left:14px}
+.box.opened .door.l{transform:rotateY(-105deg)}
+.box.opened .door.r{transform:rotateY(105deg)}
+.box.opened .door{pointer-events:none}
+.bx-head{padding:34px 36px 24px;border-bottom:2px dashed var(--line)}
+.bx-tag{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding-right:44px}
+.pill{font-family:var(--mono);font-size:11.5px;padding:5px 10px;border-radius:999px;border:1.5px solid var(--ink);font-weight:600}
+.pill.fill{background:var(--ink);color:var(--paper)}
+.bx-head h3{font-size:clamp(28px,3.6vw,42px);line-height:1;letter-spacing:-.03em;font-weight:800}
+.bx-head p{margin-top:10px;font-size:18px;opacity:.75}
+.bx-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:24px 36px}
+.bx-card{border-radius:14px;padding:16px 18px;background:#fff;border:1.5px solid var(--line)}
+.bx-card small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:6px;font-weight:600}
+.bx-card small:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--ink))}
+.bx-flow{padding:0 36px 8px}
+.bx-flow ol{list-style:none;display:flex;flex-wrap:wrap;gap:8px;counter-reset:s}
+.bx-flow li{counter-increment:s;background:var(--cream);border-radius:10px;padding:8px 12px;font-size:14.5px;font-weight:600}
+.bx-flow li:before{content:counter(s);font-family:var(--mono);font-size:11px;background:var(--ink);color:#fff;border-radius:5px;padding:1px 6px;margin-right:8px}
+.bx-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:20px 36px 30px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:12px;background:rgba(13,14,26,.06);padding:4px 9px;border-radius:7px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:12px 18px;border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;transition:transform .2s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.bx-x{position:absolute;right:14px;top:14px;z-index:6;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-size:20px;display:grid;place-items:center}
+@media(max-width:640px){.bx-grid{grid-template-columns:1fr;padding:20px}.bx-head,.bx-flow,.bx-foot{padding-left:20px;padding-right:20px}}
 
-.case-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:28px}
-.num{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r);background:var(--red);color:#fff;font-family:var(--display);font-weight:900;font-size:20px}
-.case-head h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;max-width:820px}
-.case-grid{display:grid;grid-template-columns:.8fr 1.5fr;gap:32px;align-items:start}
-.story{display:grid;gap:14px}
-.blk{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;border-left:5px solid var(--line)}
-.blk small{display:block;font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px;margin-bottom:6px}
-.blk p{font-size:15.5px}
-.blk.dor{border-left-color:var(--ink)}.blk.dor small{color:var(--ink)}
-.blk.sol{border-left-color:var(--red)}.blk.sol small{color:var(--red)}
-.blk.res{border-left-color:var(--ok)}.blk.res small{color:var(--ok)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:700;font-family:var(--display);background:#fff;border:1px solid var(--line);color:var(--ink)}
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:30px;counter-reset:s}
-.flow div{position:relative;text-align:center;padding:0 8px;font-size:13.5px;font-weight:700;font-family:var(--display)}
-.flow div:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;margin:0 auto 8px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;position:relative;z-index:1}
-.flow div:after{content:"";position:absolute;top:17px;left:calc(50% + 17px);width:calc(100% - 34px);height:2px;background:var(--line)}
-.flow div:last-child:after{display:none}
-.flow span{display:block;font-weight:400;font-family:var(--body);color:var(--soft);font-size:12.5px;margin-top:2px}
+/* ---------- história ---------- */
+#historia{background:var(--paper)}
+.story-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.story-ctrl{display:flex;gap:8px}
+.story-ctrl button{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);font-size:20px;transition:background .2s}
+.story-ctrl button:hover{background:var(--yellow)}
+.track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:46px max(24px,calc((100vw - 1180px)/2 + 24px)) 30px;scrollbar-width:none;cursor:grab}
+.track::-webkit-scrollbar{display:none}
+.track.drag{cursor:grabbing;scroll-snap-type:none}
+.chap{flex:0 0 min(400px,82vw);scroll-snap-align:start;border-radius:22px;padding:26px;min-height:420px;display:flex;flex-direction:column;position:relative;border:2.5px solid var(--ink);background:var(--c);transition:transform .35s var(--ease)}
+.chap:nth-child(odd){transform:rotate(-.8deg)}.chap:nth-child(even){transform:rotate(.8deg)}
+.chap:hover{transform:rotate(0) translateY(-6px)}
+.chap .num{font-weight:800;font-size:96px;line-height:.8;letter-spacing:-.06em;opacity:.95}
+.chap .when{font-family:var(--mono);font-size:12px;margin:14px 0 6px;font-weight:600;letter-spacing:.04em}
+.chap h3{font-size:30px;line-height:1;letter-spacing:-.03em;font-weight:800;margin-bottom:12px}
+.chap p{font-size:16px;line-height:1.45}
+.chap .kept{margin-top:auto;padding-top:18px}
+.chap.wide{flex-basis:min(540px,88vw)}
+.chap ul{list-style:none;margin-top:12px;display:grid;gap:6px}
+.chap li{font-size:14.5px;font-weight:600;line-height:1.3;padding-left:18px;position:relative}
+.chap li:before{content:'→';position:absolute;left:0}
+.chap .kept small{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.7}
+.chap .kept span{display:inline-block;font-size:13px;font-weight:700;background:rgba(255,255,255,.55);border:1.5px solid var(--ink);border-radius:999px;padding:3px 10px;margin:0 4px 6px 0}
+.chap.now{background:var(--ink);color:var(--paper)}
+.chap.now .kept span{background:transparent;border-color:var(--paper)}
+.chap.now .pin{position:absolute;top:-14px;right:22px;background:var(--red);color:#fff;font-family:var(--mono);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;animation:bob2 2s ease-in-out infinite}
+@keyframes bob2{50%{transform:translateY(-4px)}}
+.progress{height:6px;background:var(--line);border-radius:3px;max-width:1132px;margin:0 auto;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--red);border-radius:3px;transition:width .2s}
 
-/* janela de app */
-.app{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);overflow:hidden}
-.app-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.app-bar .dots{display:flex;gap:6px;margin-right:6px}
-.app-bar .dots i{width:10px;height:10px;border-radius:50%;background:#E0E0E0}
-.app-bar b{font-family:var(--display);font-size:15px}
-.app-bar .sp{flex:1}
-.badge{font-family:var(--display);font-weight:800;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--red)}
-.badge.g{background:#E8F5EE;color:var(--ok)}
-.badge.w{background:#FDF3DC;color:#9A6500}
-.badge.n{background:#EFEFEF;color:var(--ink)}
-.demo{font-size:12px;color:var(--soft)}
-.kp{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
-.kp div{padding:12px 14px;border-left:1px solid var(--line)}
-.kp div:first-child{border-left:none}
-.kp small{display:block;font-size:11.5px;color:var(--soft)}
-.kp b{font-family:var(--display);font-size:22px;font-weight:900;font-variant-numeric:tabular-nums}
-.split{display:grid;grid-template-columns:250px 1fr}
-.queue{list-style:none;margin:0;padding:0;border-right:1px solid var(--line);max-height:430px;overflow:auto}
-.queue button{width:100%;display:flex;gap:10px;align-items:center;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line);background:#fff;cursor:pointer;font:inherit}
-.queue button[aria-current="true"]{background:var(--tint)}
-.queue .th{flex:none;width:58px;height:40px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
-.queue .th svg{display:block;width:100%;height:100%}
-.queue b{display:block;font-size:13px;font-family:var(--display)}
-.queue small{font-size:11.5px;color:var(--soft)}
-.st{font-size:10.5px;font-weight:800;font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;margin-left:auto;padding:2px 8px;border-radius:999px;background:#EFEFEF;color:var(--ink);white-space:nowrap}
-.st.aprovado{background:#E8F5EE;color:var(--ok)}.st.reprovado{background:var(--tint);color:var(--red)}.st.justificado{background:#FDF3DC;color:#9A6500}
-.detail{padding:16px 18px;display:grid;gap:14px}
-.photo{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#EFE6DA}
-.photo svg{display:block;width:100%;height:auto}
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mini h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:8px}
-.prob{display:grid;grid-template-columns:78px 1fr 38px;gap:8px;align-items:center;font-size:12.5px;margin-bottom:6px}
-.bar{height:8px;border-radius:99px;background:#EEE;overflow:hidden}
-.bar i{display:block;height:100%;border-radius:99px}
-.chk{list-style:none;margin:0;padding:0;font-size:13px;display:grid;gap:5px}
-.chk li:before{content:"";display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-2px;background:var(--ok)}
-.chk li.x:before{background:var(--red)}
-.chk li.w:before{background:var(--warn)}
-.acts{display:flex;gap:10px;flex-wrap:wrap}
-.acts button{flex:1;min-width:110px;padding:11px 14px;border-radius:var(--r);font-family:var(--display);font-weight:800;font-size:14px;cursor:pointer;border:2px solid}
-.a-ok{background:var(--ok);border-color:var(--ok);color:#fff}
-.a-no{background:var(--red);border-color:var(--red);color:#fff}
-.a-ju{background:#fff;border-color:var(--warn);color:#9A6500}
-.note{font-size:12.5px;color:var(--soft);min-height:18px}
+/* ---------- demos ---------- */
+#demos{background:var(--cream)}
+.demo{margin-top:80px;display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:start}
+.demo.flip{grid-template-columns:1.2fr .8fr}
+.demo.flip .dtext{order:2}
+@media(max-width:940px){.demo,.demo.flip{grid-template-columns:1fr}.demo.flip .dtext{order:0}}
+.demo>*,.vs>*,.vibe>*,.game>*,.marco>*{min-width:0}
+.tblw{overflow-x:auto}
+.dtext .n{font-family:var(--mono);font-size:13px;font-weight:600;display:inline-block;background:var(--ink);color:var(--paper);padding:4px 10px;border-radius:7px}
+.dtext h3{font-size:clamp(32px,3.6vw,48px);line-height:.98;letter-spacing:-.035em;font-weight:800;margin:14px 0 14px}
+.dtext p{opacity:.8;margin-bottom:12px}
+.dtext .qa{margin-top:18px;display:grid;gap:10px}
+.dtext .qa div{border-left:4px solid var(--c);padding:2px 0 2px 14px;font-size:15.5px}
+.dtext .qa b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.panel{background:var(--paper);border:2.5px solid var(--ink);border-radius:22px;padding:22px;box-shadow:10px 10px 0 var(--ink);position:relative}
+.panel .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.panel .ph b{font-size:19px;letter-spacing:-.02em}
+.fake{font-family:var(--mono);font-size:11px;background:var(--yellow);padding:3px 8px;border-radius:6px;font-weight:600}
+
+/* jogo ML */
+.game{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+@media(max-width:600px){.game{grid-template-columns:1fr}}
+.photo{aspect-ratio:4/3;border-radius:14px;position:relative;overflow:hidden;background:linear-gradient(#f3efe6 0 62%,#d9d2c3 62%);border:2px solid var(--ink)}
+.photo .id{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:11px;background:rgba(13,14,26,.8);color:#fff;padding:3px 8px;border-radius:6px;z-index:3}
+.photo .shelf{position:absolute;left:8%;right:8%;height:7px;background:#7a6a55;border-radius:2px}
+.photo .prods{position:absolute;left:12%;right:12%;display:flex;gap:4%;align-items:flex-end;transition:opacity .3s}
+.photo .prods i{flex:1;border-radius:4px 4px 2px 2px;border:2px solid rgba(0,0,0,.25)}
+.photo .price{position:absolute;background:var(--yellow);border:2px solid var(--ink);font-family:var(--mono);font-weight:600;font-size:13px;padding:2px 7px;border-radius:4px;transform:rotate(-4deg);z-index:2}
+.photo .brand{position:absolute;left:18%;right:18%;top:7%;height:15%;background:var(--red);color:#fff;font-weight:800;display:grid;place-items:center;letter-spacing:.12em;font-size:clamp(12px,1.6vw,18px);border-radius:4px;border:2px solid var(--ink)}
+.photo .stamp{position:absolute;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none}
+.photo .stamp span{font-weight:800;font-size:30px;padding:6px 16px;border:4px solid currentColor;border-radius:10px;transform:rotate(-12deg) scale(1.6);opacity:0;transition:all .35s var(--ease);background:rgba(255,253,248,.85)}
+.photo .stamp.on span{transform:rotate(-12deg) scale(1);opacity:1}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.choices button{padding:12px 6px;border-radius:12px;font-weight:700;font-size:14.5px;border:2px solid var(--ink);transition:transform .15s,background .2s}
+.choices button:hover{transform:translateY(-2px)}
+.choices .a{background:#c9f2df}.choices .r{background:#ffd3cd}.choices .j{background:#fff0bf}
+.choices button:disabled{opacity:.45;transform:none;cursor:default}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:600}
+.bars{display:grid;gap:7px;margin-bottom:16px}
+.bar{display:grid;grid-template-columns:82px 1fr 38px;gap:8px;align-items:center;font-size:13.5px;font-weight:600}
+.bar .t{height:12px;background:rgba(13,14,26,.08);border-radius:6px;overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;border-radius:6px;transition:width .7s var(--ease)}
+.bar .v{font-family:var(--mono);font-size:12px;text-align:right}
+.verdict{border-radius:12px;padding:12px 14px;font-size:14.5px;min-height:92px;background:var(--cream)}
+.verdict b{display:block;margin-bottom:2px}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.score div{background:var(--cream);border-radius:12px;padding:10px;text-align:center}
+.score b{display:block;font-size:26px;letter-spacing:-.03em;line-height:1}
+.score small{font-size:11.5px;opacity:.7}
+.next{margin-top:12px;width:100%}
+.sim{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line);display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:600px){.sim{grid-template-columns:1fr}}
+.sim label{display:block;font-size:13.5px;font-weight:600;margin-bottom:10px}
+.sim label span{float:right;font-family:var(--mono)}
+input[type=range]{width:100%;accent-color:var(--blue);margin-top:4px}
+.simout{background:var(--blue);color:#fff;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.simout b{font-size:46px;line-height:1;letter-spacing:-.04em}
+.simout small{opacity:.85;font-size:13.5px}
 
 /* marco */
-.mk{display:grid;grid-template-columns:200px 1fr 300px;min-height:440px}
-.mk-nav{border-right:1px solid var(--line);padding:12px;background:#FAFAFA;display:grid;gap:6px;align-content:start}
-.mk-nav button{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:0;border-radius:var(--r);background:transparent;font:inherit;font-weight:700;cursor:pointer;color:var(--ink);font-size:14px}
-.mk-nav button[aria-current="true"]{background:var(--red);color:#fff}
-.mk-nav em{font-style:normal;font-size:12px;opacity:.85}
-.mk-agent{margin-top:10px;padding:12px;border:1px dashed var(--line);border-radius:var(--r);font-size:12.5px;color:var(--soft)}
-.mk-agent b{display:block;color:var(--ink);font-family:var(--display)}
-.mk-feed{padding:14px;display:grid;gap:10px;align-content:start}
-.it{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:6px}
-.it .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--soft)}
-.it h4{font-size:14.5px;font-family:var(--display)}
-.it p{font-size:13px;color:var(--soft)}
-.pill{font-size:10.5px;font-weight:800;font-family:var(--display);text-transform:uppercase;padding:2px 8px;border-radius:999px}
-.pill.alta{background:var(--red);color:#fff}.pill.media{background:#FDF3DC;color:#9A6500}.pill.baixa{background:#EFEFEF;color:var(--ink)}
-.mk-mail{border-left:1px solid var(--line);padding:14px;background:#FAFAFA;font-size:13px}
-.mk-mail h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:8px}
-.mail{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px}
-.mail b{display:block;font-family:var(--display);margin-bottom:6px}
-.mail ul{margin:6px 0 0;padding-left:18px}
-.mail li{margin-bottom:4px}
+.marco{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.marco{grid-template-columns:1fr}}
+.log{background:var(--ink);color:#d7dcff;border-radius:14px;padding:14px;font-family:var(--mono);font-size:12.5px;line-height:1.6;height:340px;overflow:auto}
+.log .ok{color:#7CF2B5}.log .wa{color:var(--yellow)}.log .mu{opacity:.55}.log .hi{color:#fff;font-weight:600}
+.log .cur:after{content:"▋";animation:blink 1s steps(1) infinite}
+.bulletin{border:2px solid var(--ink);border-radius:14px;padding:16px;height:340px;overflow:auto;background:#fff}
+.bulletin h5{font-size:17px;letter-spacing:-.02em;margin-bottom:2px}
+.bulletin .sub{font-family:var(--mono);font-size:11px;opacity:.6;margin-bottom:12px}
+.bulletin .grp{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 6px;font-weight:600}
+.bi{border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:14px;line-height:1.35;animation:pop .45s var(--ease)}
+.bi.alta{background:#ffe1dc}.bi.media{background:#fff3c7}.bi.rev{background:#e5e8ff;border:1.5px dashed var(--blue)}
+.bi small{display:block;font-family:var(--mono);font-size:10.5px;opacity:.65;margin-top:3px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}}
+.empty-b{height:100%;display:grid;place-items:center;text-align:center;opacity:.5;font-size:14px}
 
-/* bases */
-.up{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
-.file{border:1.5px dashed var(--line);border-radius:var(--r);padding:10px 12px;font-size:12.5px;display:flex;gap:10px;align-items:center}
-.file i{flex:none;width:28px;height:28px;border-radius:6px;background:#E8F5EE;color:var(--ok);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:11px;font-family:var(--display)}
-.file b{display:block;font-family:var(--display);font-size:13px}
-.pipe{display:flex;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.pipe .s{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;font-family:var(--display);color:var(--soft)}
-.pipe .s i{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);display:inline-block}
-.pipe .s.done{color:var(--ink)}.pipe .s.done i{background:var(--ok);border-color:var(--ok)}
-.pipe .s.run{color:var(--red)}.pipe .s.run i{border-color:var(--red);border-top-color:transparent;animation:spin .8s linear infinite}
-.pipe .ar{color:var(--line)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.pipe .btn{margin-left:auto;padding:7px 14px;font-size:12.5px}
-.tbl-wrap{overflow-x:auto}
-table.t{width:100%;border-collapse:collapse;font-size:13px}
-table.t th{text-align:left;padding:10px 14px;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);border-bottom:1px solid var(--line);background:#FAFAFA;white-space:nowrap}
-table.t td{padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
-table.t .ob{display:flex;align-items:center;gap:8px;min-width:140px}
-table.t .ob .bar{flex:1}
-.foot{display:flex;justify-content:space-between;gap:10px;padding:10px 16px;font-size:12.5px;color:var(--soft);flex-wrap:wrap}
-.foot b{color:var(--ink)}
+/* dados */
+.files{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.file{display:flex;gap:10px;align-items:center;border:2px solid var(--ink);border-radius:12px;padding:8px 12px;background:#fff;transition:transform .5s var(--ease),opacity .5s}
+.file i{width:26px;height:32px;border-radius:4px;background:var(--green);position:relative;font-style:normal;color:#fff;font-size:9px;font-weight:800;display:grid;place-items:end center;padding-bottom:3px}
+.file b{font-size:14px;display:block;line-height:1.1}
+.file small{font-size:11.5px;opacity:.6}
+.files.sucked .file{transform:translateY(40px) scale(.6);opacity:0}
+.pipe{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.pipe span{font-weight:700;font-size:13.5px;padding:7px 12px;border-radius:999px;border:2px solid var(--ink);transition:all .3s}
+.pipe span.on{background:var(--ink);color:#fff;transform:scale(1.06)}
+.pipe span.done{background:var(--green);border-color:var(--green);color:#fff}
+.pipe em{font-style:normal;opacity:.4}
+.rank{width:100%;border-collapse:collapse;font-size:14px}
+.rank th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:6px;opacity:.6;font-weight:600}
+.rank td{padding:8px 6px;border-top:1px solid var(--line)}
+.rank tr{animation:pop .4s var(--ease) both}
+.rank .gap{font-family:var(--mono);color:var(--red);font-weight:600}
+.rank .sc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:600}
+.rank .sc i{height:10px;border-radius:5px;background:var(--orange);display:block}
+.check{margin-top:12px;font-family:var(--mono);font-size:12.5px;background:#d9f5e7;border-radius:10px;padding:10px 12px;display:none}
+.check.on{display:block;animation:pop .4s var(--ease)}
 
-/* executivas */
-.ex{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
-.tools{display:grid;gap:10px}
-.tool{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
-.tool i{flex:none;width:8px;align-self:stretch;border-radius:4px;background:var(--red)}
-.tool b{display:block;font-family:var(--display);font-size:15.5px}
-.tool span{font-size:14px;color:var(--soft)}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 16px}
-.tile{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;border-left:5px solid var(--ok)}
-.tile.warn{border-left-color:var(--warn)}
-.tile small{display:block;font-size:11.5px;color:var(--soft)}
-.tile b{font-family:var(--display);font-size:22px;font-weight:900;font-variant-numeric:tabular-nums}
-.chart{width:100%;height:auto;display:block}
-.chart text{font-family:var(--body);font-size:12px;fill:var(--soft)}
-.chart .val{fill:var(--ink);font-weight:700}
-.cpad{padding:0 16px 16px}
-.cpad .ct{font-family:var(--display);font-weight:800;font-size:14px;margin-bottom:4px}
-.lg{display:flex;gap:14px;font-size:12px;color:var(--soft);margin-bottom:4px}
-.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+/* ---------- vibe coding ---------- */
+#vibe{background:var(--ink);color:var(--paper)}
+#vibe .lead{opacity:.75}
+.vibe{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:50px}
+@media(max-width:900px){.vibe{grid-template-columns:1fr}}
+.chat{background:#191b2e;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;height:480px;overflow:auto;scroll-behavior:smooth}
+.msg{max-width:88%;padding:12px 15px;border-radius:16px;font-size:15px;line-height:1.4;animation:pop .45s var(--ease)}
+.msg.me{align-self:flex-end;background:var(--yellow);color:var(--ink);border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:#2a2d48;border-bottom-left-radius:4px;font-family:var(--mono);font-size:13px}
+.msg.ai b{color:#7CF2B5;font-weight:600}
+.msg.note{align-self:center;background:transparent;border:1.5px dashed rgba(255,255,255,.25);font-family:var(--mono);font-size:12px;opacity:.8}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:14px;background:#2a2d48;border-radius:16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#aab;animation:dots 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dots{50%{transform:translateY(-4px);opacity:.4}}
+.preview{background:var(--paper);color:var(--ink);border-radius:22px;padding:18px;position:relative;min-height:460px}
+.preview .bar0{display:flex;gap:6px;margin-bottom:14px;align-items:center}
+.preview .bar0 i{width:11px;height:11px;border-radius:50%;background:var(--red)}
+.preview .bar0 i:nth-child(2){background:var(--yellow)}.preview .bar0 i:nth-child(3){background:var(--green)}
+.preview .bar0 span{margin-left:auto;font-family:var(--mono);font-size:11.5px;background:var(--ink);color:#fff;padding:3px 9px;border-radius:6px}
+.vsteps{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.vsteps button{font-family:var(--mono);font-size:12.5px;padding:8px 13px;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);font-weight:600}
+.vsteps button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.vsteps .go{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.pv{animation:pop .5s var(--ease)}
+.pv1 li{font-family:'Times New Roman',serif;font-size:16px;margin-left:20px;line-height:1.7}
+.pv-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.pv-sum div{background:var(--blue);color:#fff;border-radius:12px;padding:10px 12px}
+.pv-sum div:last-child{background:var(--orange)}
+.pv-sum small{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.pv-sum b{display:block;font-size:16px;letter-spacing:-.01em}
+.mat{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px;font-weight:600}
+.mat .t{height:14px;background:rgba(13,14,26,.08);border-radius:7px;overflow:hidden}
+.mat .t i{display:block;height:100%;border-radius:7px;animation:grow .8s var(--ease)}
+@keyframes grow{from{width:0!important}}
+.mat .v{font-family:var(--mono);font-size:12px;text-align:right}
+.stamp-ok{position:absolute;right:18px;bottom:18px;background:var(--green);color:#fff;font-weight:800;padding:8px 14px;border-radius:10px;transform:rotate(-6deg);animation:pop .5s var(--ease)}
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+@media(max-width:900px){.method{grid-template-columns:1fr 1fr}}
+.method div{border:1.5px solid rgba(255,255,255,.2);border-radius:16px;padding:16px}
+.method b{font-family:var(--mono);color:var(--yellow);font-size:12px}
+.method h4{font-size:19px;letter-spacing:-.02em;margin:4px 0 4px}
+.method p{font-size:14.5px;opacity:.75}
 
-/* prompts */
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.tabs button{font-family:var(--display);font-weight:800;font-size:14px;border-radius:var(--r);padding:10px 16px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.pbox{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
-.phead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.phead p{font-size:14.5px;color:var(--soft);max-width:760px}
-.copy{font-family:var(--display);font-weight:800;font-size:13px;border-radius:var(--r);padding:8px 16px;border:2px solid var(--red);background:#fff;color:var(--red);cursor:pointer}
-.copy:hover{background:var(--red);color:#fff}
-pre{margin:0;padding:22px;overflow:auto;max-height:560px;background:#2B2B2B;color:#F2F2F2;font-family:var(--mono);font-size:12.8px;line-height:1.65;white-space:pre-wrap}
-.techs{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+/* ---------- prompts ---------- */
+#prompts{background:var(--paper)}
+.ptabs{display:flex;gap:8px;flex-wrap:wrap;margin:40px 0 20px}
+.ptabs button{padding:10px 16px;border-radius:999px;border:2px solid var(--ink);font-weight:700;font-size:15px;transition:background .2s}
+.ptabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.vs{display:grid;grid-template-columns:.75fr 1.25fr;gap:20px;align-items:start}
+@media(max-width:900px){.vs{grid-template-columns:1fr}}
+.lazy{border:2.5px dashed var(--ink);border-radius:20px;padding:20px;background:#fff;position:sticky;top:90px}
+.lazy .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--red)}
+.lazy q{display:block;font-size:22px;line-height:1.2;letter-spacing:-.02em;font-weight:700;margin:10px 0 14px;quotes:"“" "”"}
+.lazy ul{list-style:none;display:grid;gap:6px;font-size:14.5px}
+.lazy li:before{content:"✕ ";color:var(--red);font-weight:800}
+.lazy .vs-arrow{margin-top:16px;padding-top:14px;border-top:2px dashed var(--line);font-size:14.5px}
+.lazy .vs-arrow b{color:var(--green)}
+.anatomy{border:2.5px solid var(--ink);border-radius:20px;background:#fff;overflow:hidden}
+.anatomy .ah{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.anatomy .ah span{font-weight:700}
+.anatomy .ah small{font-family:var(--mono);font-size:12px;opacity:.6}
+.copy{font-family:var(--mono);font-size:12.5px;font-weight:600;padding:8px 13px;border-radius:999px;background:var(--ink);color:#fff}
+.blocks{padding:12px;display:grid;gap:8px;max-height:620px;overflow:auto}
+.blk{border-radius:12px;border:1.5px solid var(--line);border-left:6px solid var(--c);text-align:left;width:100%;padding:10px 12px;transition:background .2s,box-shadow .2s}
+.blk:hover{background:rgba(13,14,26,.025)}
+.blk .bt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.blk .bt code{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--c2,var(--ink))}
+.blk .bt i{font-style:normal;font-size:12px;font-family:var(--mono);opacity:.55}
+.blk pre{font-family:var(--mono);font-size:12.3px;line-height:1.55;white-space:pre-wrap;word-break:break-word;margin-top:6px;opacity:.85}
+.blk .why{display:none;margin-top:10px;background:var(--c);color:var(--ink);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:600}
+.blk.open .why{display:block;animation:pop .35s var(--ease)}
+.blk.open{box-shadow:0 0 0 2px var(--c)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.legend span{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--c);font-weight:600}
 
-/* perfil */
-.prof{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.pf{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px}
-.pf small{display:block;font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--red);margin-bottom:8px}
-.pf h3{font-size:19px;margin-bottom:6px}
-.pf p{font-size:14.5px;color:var(--soft)}
+/* ---------- depósito ---------- */
+#deposito{background:var(--cream)}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:36px 0 22px}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:10px;border:2.5px solid var(--ink);border-radius:999px;padding:4px 6px 4px 18px;background:#fff}
+.search input{flex:1;border:0;outline:0;font:inherit;font-size:16px;background:transparent;padding:8px 0}
+.search kbd{font-family:var(--mono);font-size:12px;border:1.5px solid var(--line);border-radius:6px;padding:2px 8px}
+.cats{display:flex;gap:6px;flex-wrap:wrap}
+.cats button{padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;border:2px solid var(--ink);background:#fff;transition:all .2s}
+.cats button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.count{font-family:var(--mono);font-size:13px;margin-bottom:14px;opacity:.7}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.mini{text-align:left;border-radius:16px;border:2.5px solid var(--ink);background:#fff;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s}
+.mini:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:6px 8px 0 var(--ink)}
+.mini .lid{height:30px;background:var(--c);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 8px,rgba(0,0,0,.14) 8px 11px);border-bottom:2.5px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-family:var(--mono);font-size:10.5px;font-weight:600}
+.mini .bd{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mini h4{font-size:19px;line-height:1.1;letter-spacing:-.02em}
+.mini p{font-size:14.5px;opacity:.75;flex:1}
+.mini .ft{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-family:var(--mono)}
+.st{display:inline-flex;align-items:center;gap:6px}
+.st:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green)}
+.st.ev:before{background:var(--orange);animation:blink 1.4s steps(1) infinite}
+.nores{grid-column:1/-1;text-align:center;padding:40px;font-size:18px;opacity:.6}
 
-/* contato */
-.contact{background:var(--red);color:#fff;border-radius:var(--r);padding:44px;display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}
-.contact h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;max-width:640px}
-.contact p{margin-top:10px;opacity:.95}
-.contact .btn{background:#fff;color:var(--red);border-color:#fff}
-footer{padding:26px 0 40px;color:var(--soft);font-size:13px;text-align:center}
+/* ---------- fora da caixa ---------- */
+#fora{background:var(--paper)}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:44px}
+.fact{perspective:1000px;height:230px;cursor:pointer;display:block;width:100%;text-align:left;padding:0}
+.fact .ff>*,.fact .fb>*{display:block}
+.fact .fi{display:block;position:relative;width:100%;height:100%;transition:transform .7s var(--ease);transform-style:preserve-3d}
+.fact.on .fi{transform:rotateY(180deg)}
+.fact .ff,.fact .fb{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;border:2.5px solid var(--ink);padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.fact .ff{background:var(--c)}
+.fact .ff .em{font-size:40px;line-height:1}
+.fact .ff b{font-size:23px;line-height:1.08;letter-spacing:-.025em}
+.fact .ff small{font-family:var(--mono);font-size:11px;opacity:.65}
+.fact .fb{background:var(--ink);color:var(--paper);transform:rotateY(180deg);font-size:16px;line-height:1.45}
+.fact .fb small{font-family:var(--mono);font-size:11px;color:var(--yellow)}
 
-@media(max-width:1000px){
-  .hero-in{grid-template-columns:1fr;padding:48px 20px}
-  .case-grid,.ex{grid-template-columns:1fr}
-  .mk{grid-template-columns:170px 1fr}.mk-mail{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
-  .comp{grid-template-columns:repeat(2,1fr)}
-  .strip-in{grid-template-columns:repeat(2,1fr)}.kpi:nth-child(3){border-left:none}
-  .links a.l{display:none}
+/* ---------- contato ---------- */
+#contato{background:var(--red);color:#fff;overflow:hidden}
+#contato h2{font-size:clamp(56px,11vw,170px);line-height:.85;letter-spacing:-.055em;font-weight:800}
+.mail{display:inline-block;margin-top:34px;font-size:clamp(22px,3.4vw,44px);font-weight:800;letter-spacing:-.03em;text-decoration:none;border-bottom:5px solid #fff;transition:color .2s}
+.mail:hover{color:var(--yellow);border-color:var(--yellow)}
+.cbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.cbtns .btn{background:#fff;color:var(--ink)}
+.cbtns .btn.ghost{background:transparent;color:#fff;border-color:#fff}
+footer{background:var(--ink);color:rgba(255,253,248,.7);padding:26px 0;font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--paper)}
+
+/* ---------- terminal ---------- */
+.term{position:fixed;right:18px;bottom:18px;width:min(560px,calc(100vw - 36px));height:min(420px,70vh);background:#0b0c16;color:#d7dcff;border-radius:16px;border:2px solid #2a2d48;box-shadow:0 30px 80px rgba(0,0,0,.45);z-index:100;display:flex;flex-direction:column;font-family:var(--mono);font-size:13px;transform:translateY(20px) scale(.97);opacity:0;pointer-events:none;transition:all .3s var(--ease)}
+.term.on{transform:none;opacity:1;pointer-events:auto}
+.term .tb{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid #22253d}
+.term .tb i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.term .tb i:nth-child(2){background:#febc2e}.term .tb i:nth-child(3){background:#28c840}
+.term .tb span{margin-left:8px;opacity:.6}
+.term .tb button{margin-left:auto;opacity:.6}
+.term .out{flex:1;overflow:auto;padding:12px 14px;line-height:1.6;white-space:pre-wrap}
+.term .out .p{color:#7CF2B5}.term .out .y{color:var(--yellow)}.term .out .r{color:#ff8a7a}
+.term form{display:flex;gap:8px;padding:10px 14px;border-top:1px solid #22253d}
+.term form span{color:#7CF2B5}
+.term input{flex:1;background:transparent;border:0;outline:0;color:#fff;font:inherit}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  html{scroll-behavior:auto}.reveal{opacity:1;transform:none}
 }
-@media(max-width:700px){
-  section,.case{padding:48px 0}
-  .split{grid-template-columns:1fr}.queue{max-height:none;display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
-  .queue li{flex:none;width:220px}
-  .dgrid,.up,.prof{grid-template-columns:1fr}
-  .kp{grid-template-columns:repeat(2,1fr)}
-  .mk{grid-template-columns:1fr}.mk-nav{grid-auto-flow:column;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.mk-agent{display:none}
-  .tiles{grid-template-columns:repeat(2,1fr)}
-  .flow{grid-template-columns:1fr;gap:14px}.flow div{text-align:left;display:flex;gap:12px;align-items:center}.flow div:before{margin:0}.flow div:after{display:none}
-  .contact{padding:28px 22px}
-  .brand{font-size:22px}
-}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
-/* ---- v3 ---- */
-.progress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--red);z-index:60}
-.mosaic div{animation:tile 6s ease-in-out infinite alternate}
-.mosaic div:nth-child(3n){animation-delay:-2s}.mosaic div:nth-child(4n){animation-delay:-4s}.mosaic div:nth-child(5n){animation-delay:-1s}
-@keyframes tile{from{filter:brightness(.86)}to{filter:brightness(1.12)}}
-.depara{display:grid;gap:10px;margin-top:30px;max-width:620px}
-.depara a{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:var(--r);padding:12px 16px;color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;transition:background .15s,transform .15s}
-.depara a:hover{background:#fff;color:var(--red);transform:translateX(4px)}
-.depara a span{opacity:.75;font-weight:600}
-.depara a b{margin-left:auto;font-family:var(--display)}
-.depara svg{flex:none;width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.case:nth-of-type(even){background:transparent}
-
-button.fs{all:unset;box-sizing:border-box;position:relative;text-align:center;padding:0 8px;cursor:pointer;font-size:13.5px;font-weight:700;font-family:var(--display);display:block}
-button.fs:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:8px}
-button.fs:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;margin:0 auto 8px;border-radius:50%;background:#fff;color:var(--red);border:2px solid var(--red);font-weight:900;position:relative;z-index:1;transition:background .15s,color .15s}
-button.fs[aria-pressed="true"]:before,button.fs:hover:before{background:var(--red);color:#fff}
-button.fs:after{content:"";position:absolute;top:17px;left:calc(50% + 17px);width:calc(100% - 34px);height:2px;background:var(--line)}
-button.fs:last-child:after{display:none}
-button.fs span{display:block;font-weight:400;font-family:var(--body);color:var(--soft);font-size:12.5px;margin-top:2px}
-.fdet{margin-top:18px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--red);border-radius:var(--r);padding:16px 20px;font-size:15.5px;min-height:62px}
-.fdet b{font-family:var(--display);color:var(--red);margin-right:6px}
-.sim{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow)}
-.sim h3{font-size:20px;margin-bottom:4px}
-.sim .hint{font-size:13px;color:var(--soft);margin-bottom:18px}
-.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.ctl{margin-bottom:16px}
-.ctl label{display:flex;justify-content:space-between;font-size:14px;font-weight:700;font-family:var(--display);margin-bottom:6px}
-.ctl output{color:var(--red)}
-input[type=range]{width:100%;accent-color:var(--red)}
-.res4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.rk{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
-.rk small{display:block;font-size:12px;color:var(--soft)}
-.rk b{font-family:var(--display);font-size:26px;font-weight:900;font-variant-numeric:tabular-nums}
-.rk.hl{background:var(--red);border-color:var(--red);color:#fff}.rk.hl small{color:#fff;opacity:.85}
-.cmp{margin-top:12px;display:grid;gap:8px}
-.cmp div{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:center;font-size:12.5px}
-.cmp .bar{height:12px}
-/* repositório */
-.tool-bar{display:grid;gap:14px;margin-bottom:22px}
-.search{position:relative}
-.search input{width:100%;padding:15px 52px 15px 46px;border:2px solid var(--line);border-radius:var(--r);font:inherit;font-size:16px;background:#fff;color:var(--ink)}
-.search input:focus{border-color:var(--red);outline:none}
-.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--soft);fill:none;stroke-width:2;stroke-linecap:round}
-.search kbd{position:absolute;right:14px;top:50%;transform:translateY(-50%);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:var(--mono);font-size:12px;color:var(--soft);background:#FAFAFA}
-.frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.frow small{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-right:4px}
-.fb{font-family:var(--display);font-weight:800;font-size:13.5px;border-radius:999px;padding:7px 14px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
-.fb[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
-.fb.t[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
-.count{font-size:14px;color:var(--soft);margin-bottom:14px}
-.count b{color:var(--ink)}
-.repo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.rc{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px;align-content:start;transition:border-color .15s,box-shadow .15s,transform .15s}
-.rc:hover{border-color:var(--red);box-shadow:0 8px 22px rgba(0,0,0,.1);transform:translateY(-3px)}
-.rc:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.rc .nm{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:13px;font-weight:500;color:var(--red);word-break:break-all}
-.rc .nm svg{flex:none;width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round}
-.rc h3{font-size:17px;font-weight:800}
-.rc p{font-size:14px;color:var(--soft)}
-.rc .ft{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--soft);border-top:1px solid var(--line);padding-top:10px}
-.rc .tech{display:flex;flex-wrap:wrap;gap:5px}
-.tg{font-size:11.5px;font-weight:700;font-family:var(--display);padding:2px 9px;border-radius:999px;background:var(--alt);border:1px solid var(--line);color:var(--ink)}
-.sdot{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-family:var(--display)}
-.sdot:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ok)}
-.sdot.ev:before{background:var(--warn)}
-.empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--soft);border:2px dashed var(--line);border-radius:10px}
-.scrim{position:fixed;inset:0;background:rgba(30,0,6,.55);z-index:70;opacity:0;pointer-events:none;transition:opacity .2s}
-.scrim.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(580px,100%);background:#fff;z-index:80;transform:translateX(104%);transition:transform .25s ease;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.25)}
-.drawer.open{transform:none}
-.dh{background:var(--red);color:#fff;padding:22px 24px}
-.dh .nm{font-family:var(--mono);font-size:13px;opacity:.9}
-.dh h3{font-size:24px;font-weight:800;margin:6px 0 10px}
-.dh .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px}
-.dh .meta .tg{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff}
-.dbody{padding:22px 24px;overflow:auto;flex:1;display:grid;gap:16px;align-content:start}
-.dsec small{display:block;font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
-.dsec.d small{color:var(--ink)}.dsec.s small{color:var(--red)}.dsec.r small{color:var(--ok)}.dsec.k small{color:var(--soft)}
-.dsec p{font-size:15.5px}
-.dsec ol{margin:0;padding-left:20px;font-size:15px}
-.dsec ol li{margin-bottom:5px}.dsec ol li::marker{color:var(--red);font-weight:800}
-.dnav{display:flex;justify-content:space-between;gap:10px;padding:14px 24px;border-top:1px solid var(--line);background:#FAFAFA}
-.dnav button{font-family:var(--display);font-weight:800;font-size:14px;border-radius:var(--r);padding:10px 16px;border:2px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
-.dnav button:hover{border-color:var(--red);color:var(--red)}
-.dnav .x{background:var(--red);border-color:var(--red);color:#fff}.dnav .x:hover{background:var(--red-d);color:#fff}
-@media(max-width:1000px){.repo{grid-template-columns:repeat(2,1fr)}.sim-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.repo{grid-template-columns:1fr}button.fs{display:flex;text-align:left;gap:12px;align-items:center}button.fs:before{margin:0}button.fs:after{display:none}.res4{grid-template-columns:1fr 1fr}}
-.two{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:stretch;margin-bottom:26px}
-.w{border-radius:var(--r);padding:24px 26px}
-.w small{font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
-.w h3{font-size:26px;margin:4px 0 12px}
-.w ul{margin:0;padding-left:18px}.w li{margin-bottom:6px;font-size:15.5px}
-.w1{background:#fff;border:2px solid var(--red)}.w1 small{color:var(--red)}.w1 li::marker{color:var(--red)}
-.w2{background:var(--ink);color:#fff}.w2 small{color:#FFB3B8}.w2 li::marker{color:#FF6B76}
-.mid{display:grid;place-items:center}.mid svg{width:34px;height:34px;stroke:var(--red);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.accel{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
-.acts-list{display:grid;gap:6px}
-.acts-list button{text-align:left;font-family:var(--display);font-weight:800;font-size:14.5px;padding:13px 16px;border-radius:var(--r);border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
-.acts-list button[aria-selected="true"]{background:var(--red);border-color:var(--red);color:#fff}
-.acc-panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
-.acc-cols{display:grid;grid-template-columns:1fr 1fr}
-.acc-cols>div{padding:22px 24px}
-.acc-cols>div+div{background:var(--tint)}
-.acc-cols small{display:block;font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.acc-cols>div:first-child small{color:var(--ink)}.acc-cols>div+div small{color:var(--red)}
-.acc-cols p{font-size:16px}
-.acc-ev{border-top:1px solid var(--line);padding:14px 24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--soft)}
-.acc-ev button{font-family:var(--mono);font-size:12.5px;color:var(--red);background:#fff;border:1px solid var(--red);border-radius:6px;padding:4px 10px;cursor:pointer}
-.acc-ev button:hover{background:var(--red);color:#fff}
-.blk.est{border-left-color:var(--ink)}.blk.est small{color:var(--ink)}
-.blk.dor{border-left-color:#B0B0B0}.blk.dor small{color:var(--soft)}
-@media(max-width:1000px){.accel{grid-template-columns:1fr}.acts-list{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.mid{padding:8px}.mid svg{transform:rotate(90deg)}}
-@media(max-width:700px){.acc-cols{grid-template-columns:1fr}.acts-list{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="progress" id="progress"></div>
-<nav aria-label="Principal">
-  <div class="wrap nav-in">
-    <a class="brand" href="#topo">Julia Duarte</a>
-    <div class="links">
-      <a class="l" href="#mundos">Estratégia e IA</a>
-      <a class="l" href="#casos">Casos</a>
-      <a class="l" href="#repositorio">Repositório</a>
-      <a class="l" href="#prompts">Prompts</a>
-      <a class="btn btn-red" href="#contato">Contato</a>
-    </div>
+
+<nav class="top" id="nav" aria-label="Principal">
+  <a class="logo" href="#topo">julia<i></i></a>
+  <div class="links">
+    <a href="#historia">história</a>
+    <a href="#demos">caixas abertas</a>
+    <a href="#vibe">vibe coding</a>
+    <a href="#prompts">prompts</a>
+    <a href="#deposito">depósito</a>
+    <a href="#contato">oi!</a>
   </div>
+  <button class="termbtn" id="openTerm" type="button" aria-label="Abrir terminal">&gt;_ terminal <kbd>T</kbd></button>
 </nav>
 
-<header class="hero" id="topo">
-  <div class="mosaic" id="mosaic" aria-hidden="true"></div>
-  <div class="wrap hero-in">
-    <div>
-      <h1>Estratégia e eficiência, <b>aceleradas por IA</b>.</h1>
-      <p class="sub">Planejamento estratégico e eficiência operacional com IA como acelerador, do diagnóstico à solução em uso.</p>
-      <div class="depara" aria-label="Atalhos para os casos">
-        <a href="#caso-1">Fotos conferidas à mão <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> <b>Modelo de ML que aprende</b></a>
-        <a href="#caso-2">Fontes oficiais dispersas <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> <b>Agente de IA Marco</b></a>
-        <a href="#caso-3">Bases isoladas <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> <b>Ranking de oportunidades</b></a>
+<!-- ================= HERO ================= -->
+<header id="topo">
+  <div class="wrap hero-head">
+    <h1>Oi! Sou engenheira de automação, e transformo problema bagunçado em <em>ferramenta que funciona</em>, com a IA como dupla.</h1>
+    <div class="modes">
+      <div class="switch" role="group" aria-label="Escolha um modo">
+        <span class="knob" id="knob"></span>
+        <button type="button" data-m="0" aria-pressed="true">🧠 estratégia</button>
+        <button type="button" data-m="1" aria-pressed="false">🛠️ builder</button>
       </div>
+      <p class="modetxt" id="modetxt"></p>
     </div>
-    <aside class="pcard" aria-label="Resumo do perfil">
-      <h2>Candidata AI Builder</h2>
-      <p class="lead">Resumo do perfil em dez segundos.</p>
-      <div class="rows">
-        <div><span>Experiência</span><b>Planejamento estratégico, eficiência e produtos digitais</b></div>
-        <div><span>Diferencial</span><b>Une consultoria estratégica e construção com IA</b></div>
-        <div><span>Formação</span><b>Eng. de Controle e Automação, UFLA</b></div>
-        <div><span>Conclusão prevista</span><b>Dezembro de 2027</b></div>
-        <div><span>Disponibilidade</span><b>30 horas semanais</b></div>
-      </div>
-      <a class="btn btn-red btn-block" href="#mundos">Ver como uno os dois mundos</a>
-    </aside>
   </div>
+
+  <div class="stage wrap" id="stage">
+    <div class="bigname" aria-hidden="true"><span>J</span><span>U</span><span>L</span><span>I</span><span>A</span></div>
+    <div class="yard" id="yard">
+      <div class="rail"></div>
+      <div class="trolley" id="trolley"><div class="car"></div><div class="cable" id="cable"></div><div class="claw" id="claw"><b></b><b></b></div></div>
+    </div>
+    <div class="hint" id="hint">↓ clica numa caixa. a garra busca o projeto pra você</div>
+  </div>
+  <div class="ground"></div>
 </header>
 
-<div class="strip">
-  <div class="wrap strip-in">
-    <div class="kpi"><b data-to="20" data-suf="x">20x</b><span>menos tempo em um fluxo de pedidos</span></div>
-    <div class="kpi"><b data-to="10" data-pre="~" data-suf=" mil">~10 mil</b><span>fotos por semana no modelo de ML</span></div>
-    <div class="kpi"><b data-to="4">4</b><span>fluxos cobertos por um agente de IA</span></div>
-    <div class="kpi"><b data-to="29">29</b><span>iniciativas de produto priorizadas</span></div>
+<div class="ticker" aria-hidden="true"><div class="tt" id="tt"></div></div>
+
+<!-- ================= HISTÓRIA ================= -->
+<section id="historia" class="pad">
+  <div class="wrap story-top reveal">
+    <div>
+      <span class="eyebrow" style="color:var(--red)">minha história</span>
+      <h2 class="big">Nunca fiquei<br>numa caixa só.</h2>
+      <p class="lead">Começa pelo agora e volta no tempo: dos agentes de IA à consultoria, da robótica na Itália ao carro a hidrogênio. Cada capítulo me deu uma ferramenta nova, e eu uso todas ao mesmo tempo. Arrasta pro lado.</p>
+    </div>
+    <div class="story-ctrl"><button type="button" id="sPrev" aria-label="Capítulo anterior">←</button><button type="button" id="sNext" aria-label="Próximo capítulo">→</button></div>
   </div>
+  <div class="track" id="track"></div>
+  <div class="progress"><i id="prog"></i></div>
+</section>
+
+<!-- ================= DEMOS ================= -->
+<section id="demos" class="pad">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--blue)">caixas abertas</span>
+      <h2 class="big">Não conto.<br>Mostro rodando.</h2>
+      <p class="lead">Três projetos reais, recriados aqui com dados fictícios pra você brincar. Os clientes ficam anônimos; a lógica é a mesma que está em produção.</p>
+    </div>
+
+    <!-- demo 1 -->
+    <div class="demo reveal" id="demo-ml">
+      <div class="dtext">
+        <span class="n">caixa 01 · machine learning</span>
+        <h3>Você vs. o modelo.</h3>
+        <p>Um time conferia à mão umas 10 mil fotos por semana, comprovando se o fornecedor expôs o produto como combinado. Em vez de mais gente olhando foto, treinei um modelo que sugere a decisão e aprende com cada clique do analista.</p>
+        <p><b>Tenta você:</b> a regra é produto + preço + marca = aprovado. Sem produto = reprovado. Faltou algo = justificado.</p>
+        <div class="qa">
+          <div style="--c:var(--red)"><b>a dor</b>Aprovação 100% manual, foto por foto.</div>
+          <div style="--c:var(--blue)"><b>minha decisão</b>Treinar em casa com o histórico já classificado: custo zero, dado no ambiente do cliente, humano com a palavra final.</div>
+          <div style="--c:var(--green)"><b>o que muda</b>O analista para de conferir tudo e passa a decidir por exceção.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><b>Painel de contrapartidas</b><span class="fake">dados fictícios</span></div>
+        <div class="game">
+          <div>
+            <div class="photo" id="photo"></div>
+            <div class="choices" id="choices">
+              <button type="button" class="a" data-v="aprovado">✓ Aprovar</button>
+              <button type="button" class="r" data-v="reprovado">✕ Reprovar</button>
+              <button type="button" class="j" data-v="justificado">? Justificar</button>
+            </div>
+          </div>
+          <div class="side">
+            <h4>sugestão do modelo</h4>
+            <div class="bars" id="mbars"></div>
+            <div class="verdict" id="verdict"><b>Sua vez.</b>Olha a foto e decide. O modelo só mostra o palpite depois, pra não te influenciar.</div>
+            <button type="button" class="btn next" id="nextPhoto" style="display:none">Próxima foto →</button>
+          </div>
+        </div>
+        <div class="score">
+          <div><b id="sRounds">0</b><small>fotos</small></div>
+          <div><b id="sYou">0</b><small>seus acertos</small></div>
+          <div><b id="sAgree">0</b><small>você + modelo de acordo</small></div>
+        </div>
+        <div class="sim">
+          <div>
+            <label>Fotos por semana <span id="vF">10.000</span><input type="range" id="rF" min="1000" max="30000" step="500" value="10000"></label>
+            <label>Segundos por foto, à mão <span id="vM">30 s</span><input type="range" id="rM" min="5" max="90" step="1" value="30"></label>
+            <label>Segundos por foto, com sugestão <span id="vS">10 s</span><input type="range" id="rS" min="2" max="60" step="1" value="10"></label>
+          </div>
+          <div class="simout"><small>horas liberadas por semana</small><b id="vH">55,6 h</b><small id="vA">≈ 1,4 analista de 40 h</small><small style="margin-top:8px;opacity:.7;font-size:12px">Premissas ilustrativas. Mexe nos sliders.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- demo 2 -->
+    <div class="demo flip reveal" id="demo-marco">
+      <div class="panel">
+        <div class="ph"><b>Marco · execução de hoje</b><span style="display:flex;gap:8px;align-items:center"><span class="fake">dados fictícios</span><button type="button" class="btn" id="runMarco" style="padding:9px 15px;font-size:14px">▶ Rodar o Marco</button></span></div>
+        <div class="marco">
+          <div class="log" id="mlog"><span class="mu">$ marco --fluxo diario</span><br><span class="mu">aguardando execução…</span></div>
+          <div class="bulletin" id="mbul"><div class="empty-b">O boletim aparece aqui,<br>montado item por item.</div></div>
+        </div>
+      </div>
+      <div class="dtext">
+        <span class="n">caixa 02 · agente de IA</span>
+        <h3>Conheça o Marco.</h3>
+        <p>Um escritório de advocacia acompanhava diário oficial, agências, processos administrativos e judiciais. Quatro rotinas, todas à mão. O Marco é o agente que coleta, classifica, resume e entrega o boletim. E sabe quando chamar um humano.</p>
+        <div class="qa">
+          <div style="--c:var(--red)"><b>a dor</b>Quatro rotinas de conferência em fontes diferentes.</div>
+          <div style="--c:var(--blue)"><b>minha decisão</b>Primeiro a automação que coleta e envia; depois o agente por cima. Confiança abaixo de 0,70 vai para revisão humana.</div>
+          <div style="--c:var(--green)"><b>o que muda</b>Visão única e cadência mantida sem esforço manual.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- demo 3 -->
+    <div class="demo reveal" id="demo-dados">
+      <div class="dtext">
+        <span class="n">caixa 03 · dados + IA</span>
+        <h3>Três planilhas entram. Um ranking sai.</h3>
+        <p>Uma rede de supermercados tinha cadastro, condições comerciais e preços em bases separadas, cruzadas no olho. Escrevi a especificação como prompt, gerei e iterei o código com a IA, e o resultado é um ranking de onde está o dinheiro.</p>
+        <div class="qa">
+          <div style="--c:var(--red)"><b>a dor</b>Bases isoladas e nenhuma priorização.</div>
+          <div style="--c:var(--blue)"><b>minha decisão</b>Chaves em ordem de preferência e nenhuma linha descartada em silêncio.</div>
+          <div style="--c:var(--green)"><b>o que muda</b>Análise repetível, focada no maior valor.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><b>Oportunidades de preço</b><span style="display:flex;gap:8px;align-items:center"><span class="fake">dados fictícios</span><button type="button" class="btn" id="runData" style="padding:9px 15px;font-size:14px">▶ Cruzar bases</button></span></div>
+        <div class="files" id="files">
+          <div class="file"><i>XLS</i><div><b>cadastro.xlsx</b><small>produtos</small></div></div>
+          <div class="file"><i>XLS</i><div><b>condicoes.xlsx</b><small>por fornecedor</small></div></div>
+          <div class="file"><i>XLS</i><div><b>precos.xlsx</b><small>por loja e data</small></div></div>
+        </div>
+        <div class="pipe" id="pipe"><span>upload</span><em>→</em><span>normalização</span><em>→</em><span>cruzamento</span><em>→</em><span>comparação</span><em>→</em><span>ranking</span></div>
+        <div class="tblw"><table class="rank"><thead><tr><th>produto</th><th>praticado</th><th>referência</th><th>gap</th><th>oportunidade</th></tr></thead><tbody id="rankb"><tr><td colspan="5" style="opacity:.5;padding:24px 6px">Aperta “Cruzar bases”.</td></tr></tbody></table></div>
+        <div class="check" id="check">✓ 1.247 linhas de entrada = 1.206 cruzadas + 41 pendências. Nada some em silêncio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VIBE CODING ================= -->
+<section id="vibe" class="pad">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--yellow)">como eu faço vibe coding</span>
+      <h2 class="big">Conversa, testa,<br>ajusta, entrega.</h2>
+      <p class="lead">Vibe coding pra mim não é pedir “faz um app” e torcer. É pensar como engenheira: sei o que quero, peço em partes pequenas, testo com dado real e só fico com o que funciona. Aperta play e vê um ciclo inteiro.</p>
+    </div>
+    <div class="vibe reveal">
+      <div>
+        <div class="chat" id="chat"></div>
+        <div class="vsteps" id="vsteps">
+          <button type="button" class="go" id="vplay">▶ play</button>
+          <button type="button" data-v="1" aria-pressed="false">v1</button>
+          <button type="button" data-v="2" aria-pressed="false">v2</button>
+          <button type="button" data-v="3" aria-pressed="false">v3</button>
+          <button type="button" data-v="4" aria-pressed="false">em uso</button>
+        </div>
+      </div>
+      <div class="preview" id="preview"></div>
+    </div>
+    <div class="method reveal">
+      <div><b>01</b><h4>Entendo a dor sem IA</h4><p>Antes de abrir o chat, mapeio o processo e defino o que é “pronto”.</p></div>
+      <div><b>02</b><h4>Escrevo a spec como prompt</h4><p>Papel, contexto, regras, formato de saída e critério de aceite.</p></div>
+      <div><b>03</b><h4>Itero em ciclos curtos</h4><p>Uma mudança por vez. Se quebrou, sei exatamente onde.</p></div>
+      <div><b>04</b><h4>Testo com dado real</h4><p>Humano no loop até a ferramenta merecer confiança.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROMPTS ================= -->
+<section id="prompts" class="pad">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--violet)">laboratório de prompts</span>
+      <h2 class="big">Prompt preguiçoso<br>vs. prompt de engenheira.</h2>
+      <p class="lead">O mesmo pedido, de dois jeitos. Clica em cada bloco do prompt da direita pra ver por que ele está lá. São modelos reais do meu trabalho, sem nenhum dado de cliente.</p>
+    </div>
+    <div class="ptabs" id="ptabs" role="tablist" aria-label="Escolha um prompt"></div>
+    <div class="vs">
+      <div class="lazy" id="lazy"></div>
+      <div class="anatomy">
+        <div class="ah"><div><span id="pname"></span><br><small id="pdesc"></small></div><button type="button" class="copy" id="pcopy">copiar prompt</button></div>
+        <div class="blocks" id="blocks"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEPÓSITO ================= -->
+<section id="deposito" class="pad">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--orange)">o depósito</span>
+      <h2 class="big">Tudo que já<br>construí, num lugar só.</h2>
+      <p class="lead">Agentes, modelos, automações, painéis e engenharia de verdade, com robô e hidrogênio. Busca, filtra e abre qualquer caixa.</p>
+    </div>
+    <div class="ctrl">
+      <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="busca: python, agente, hidrogênio…" aria-label="Buscar projetos"><kbd>/</kbd></label>
+      <div class="cats" id="cats"></div>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="shelf" id="shelf"></div>
+  </div>
+</section>
+
+<!-- ================= FORA DA CAIXA ================= -->
+<section id="fora" class="pad">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--green)">fora da caixa</span>
+      <h2 class="big">Coisas que você<br>talvez não saiba.</h2>
+      <p class="lead">Vira as cartas.</p>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato" class="pad">
+  <div class="wrap">
+    <span class="eyebrow">fim da esteira</span>
+    <h2>Bora construir<br>alguma coisa?</h2>
+    <a class="mail" href="mailto:juliadrpacheco@gmail.com">juliadrpacheco@gmail.com</a>
+    <div class="cbtns">
+      <a class="btn" href="https://www.linkedin.com/in/julia-duarte-5a3a32286" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <button class="btn ghost" type="button" id="copyMail">copiar e-mail</button>
+    </div>
+    <p style="margin-top:30px;opacity:.85">Lavras, MG · Engenharia de Controle e Automação, UFLA</p>
+  </div>
+</section>
+<footer><div class="wrap"><span><b>Julia Duarte Rodrigues Pacheco</b> · feito com vibe coding, em dupla com IA</span><span>Clientes anonimizados · interfaces com dados fictícios · aperta <b>T</b></span></div></footer>
+
+<!-- modal caixa -->
+<div class="scrim" id="scrim"></div>
+<div class="box" id="box" role="dialog" aria-modal="true" aria-labelledby="bxTitle">
+  <div class="door l" id="doorL"></div><div class="door r" id="doorR"></div>
+  <div class="inner" id="bxInner"></div>
 </div>
 
-<section id="mundos">
-  <div class="wrap">
-    <div class="eyebrow">Estratégia e IA</div>
-    <h2 class="sec-title">Eu faria o planejamento estratégico sozinha. A IA me deixa executá-lo mais rápido e em escala.</h2>
-    <p class="sec-sub">Dois mundos que raramente estão na mesma pessoa. Escolha uma etapa do planejamento e veja como eu conduzo e como a IA acelera.</p>
-    <div class="two">
-      <div class="w w1"><small>Estratégia e eficiência</small><h3>Consultora</h3><ul><li>Planejamento estratégico, iniciativas e KPIs</li><li>Business cases e priorização de portfólio</li><li>PMO e governança de entregas</li><li>Melhoria contínua, Lean Six Sigma Black Belt</li></ul></div>
-      <div class="mid" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6M10 6l-6 6 6 6"/></svg></div>
-      <div class="w w2"><small>IA e automação</small><h3>AI Builder</h3><ul><li>Agentes de IA e prompt engineering</li><li>Machine learning aplicado</li><li>Automação com Python e Selenium</li><li>Dashboards e ferramentas com vibe coding</li></ul></div>
-    </div>
-    <div class="accel">
-      <div class="acts-list" id="acts" role="tablist" aria-label="Etapas do planejamento"></div>
-      <div class="acc-panel" id="accp" role="tabpanel"></div>
-    </div>
-  </div>
-</section>
-
-<div id="casos"></div>
-
-<section class="case alt" id="caso-1">
-  <div class="wrap">
-    <div class="case-head"><div class="num">1</div><div><div class="eyebrow">Machine learning</div><h2>Um modelo que aprende com cada decisão do analista e confere milhares de fotos por semana.</h2></div></div>
-    <div class="case-grid">
-      <div class="story">
-        <div class="blk dor"><small>A dor</small><p>Aprovação 100% manual de cerca de 10 mil fotos por semana, comprovando contrapartidas de fornecedores.</p></div>
-        <div class="blk est"><small>Minha estratégia</small><p>Treinar internamente com o histórico já classificado: custo zero, dados no ambiente do cliente e decisão final humana.</p></div>
-        <div class="blk sol"><small>IA como acelerador</small><p>Modelo de classificação de imagens sugere o desfecho com nível de confiança e aprende a cada decisão.</p></div>
-        <div class="blk res"><small>O que muda</small><p>O analista passa a decidir por exceção.</p></div>
-        <div class="chips"><span class="chip">Machine Learning</span><span class="chip">Classificação de imagens</span><span class="chip">Human-in-the-loop</span><span class="chip">Python</span></div>
-      </div>
-      <div class="app" id="ui-photo" aria-label="Interface de validação de contrapartidas"></div>
-    </div>
-    <div class="flow" id="flow-1"></div><div class="fdet" id="fdet-1"></div>
-    <div class="sim">
-      <h3>Simulador de capacidade</h3>
-      <p class="hint">Ajuste as premissas. Os valores iniciais são hipóteses ilustrativas, não resultados medidos.</p>
-      <div class="sim-grid">
-        <div>
-          <div class="ctl"><label for="r1">Fotos por semana <output id="o1"></output></label><input id="r1" type="range" min="1000" max="30000" step="500" value="10000"></div>
-          <div class="ctl"><label for="r2">Segundos por foto, conferência manual <output id="o2"></output></label><input id="r2" type="range" min="5" max="120" step="1" value="30"></div>
-          <div class="ctl"><label for="r3">Segundos por foto, com sugestão do modelo <output id="o3"></output></label><input id="r3" type="range" min="2" max="60" step="1" value="10"></div>
-        </div>
-        <div>
-          <div class="res4" id="simres"></div>
-          <div class="cmp" id="simbars"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="case" id="caso-2">
-  <div class="wrap">
-    <div class="case-head"><div class="num">2</div><div><div class="eyebrow">Agente de IA</div><h2>Marco, o agente que automatizou o monitoramento regulatório de um escritório de advocacia.</h2></div></div>
-    <div class="case-grid">
-      <div class="story">
-        <div class="blk dor"><small>A dor</small><p>Quatro rotinas de conferência, diária, semanal, andamentos e processos judiciais, feitas à mão em várias fontes.</p></div>
-        <div class="blk est"><small>Minha estratégia</small><p>Mapear os quatro fluxos, definir temas, cadência e o que exige revisão humana.</p></div>
-        <div class="blk sol"><small>IA como acelerador</small><p>Agente que coleta, classifica a relevância, resume e entrega o boletim em uma plataforma protegida por senha.</p></div>
-        <div class="blk res"><small>O que muda</small><p>Visão única e cadência mantida sem esforço manual.</p></div>
-        <div class="chips"><span class="chip">AI Agents</span><span class="chip">Prompt Engineering</span><span class="chip">Selenium</span><span class="chip">Saídas em JSON</span></div>
-      </div>
-      <div class="app" id="ui-marco" aria-label="Interface da plataforma Marco"></div>
-    </div>
-    <div class="flow" id="flow-2"></div><div class="fdet" id="fdet-2"></div>
-  </div>
-</section>
-
-<section class="case alt" id="caso-3">
-  <div class="wrap">
-    <div class="case-head"><div class="num">3</div><div><div class="eyebrow">Dados e IA</div><h2>Do upload das bases ao ranking de oportunidades de preço em uma rede de supermercados.</h2></div></div>
-    <div class="case-grid">
-      <div class="story">
-        <div class="blk dor"><small>A dor</small><p>Cadastro, condições comerciais e preços em bases separadas, cruzadas manualmente e sem priorização.</p></div>
-        <div class="blk est"><small>Minha estratégia</small><p>Definir as chaves, as regras de comparação e o critério de priorização por potencial.</p></div>
-        <div class="blk sol"><small>IA como acelerador</small><p>Código gerado e iterado com LLM a partir de uma especificação estruturada.</p></div>
-        <div class="blk res"><small>O que muda</small><p>Análise repetível, com pendências rastreadas e foco no maior valor.</p></div>
-        <div class="chips"><span class="chip">Python</span><span class="chip">Análise de dados com IA</span><span class="chip">De-para</span><span class="chip">Prompt Engineering</span></div>
-      </div>
-      <div class="app" id="ui-price" aria-label="Interface de cruzamento de bases"></div>
-    </div>
-    <div class="flow" id="flow-3"></div><div class="fdet" id="fdet-3"></div>
-  </div>
-</section>
-
-<section id="repositorio">
-  <div class="wrap">
-    <div class="eyebrow">Repositório</div>
-    <h2 class="sec-title">Tudo o que construí, em um só lugar.</h2>
-    <p class="sec-sub">Busque, filtre por tecnologia e abra cada entrega para ver a dor, a minha estratégia e como a IA acelerou.</p>
-    <div class="tool-bar">
-      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Buscar por projeto, tecnologia ou tema" aria-label="Buscar no repositório"><kbd>/</kbd></div>
-      <div class="frow" id="fcat"><small>Categoria</small></div>
-      <div class="frow" id="ftech"><small>Tecnologia</small></div>
-    </div>
-    <div class="count" id="rcount"></div>
-    <div class="repo" id="repo"></div>
-  </div>
-</section>
-
-<section class="alt" id="executivas">
-  <div class="wrap">
-    <div class="eyebrow">Planejamento estratégico</div>
-    <h2 class="sec-title">Ferramentas executivas que aceleram decisão e entrega.</h2>
-    <p class="sec-sub">Estrutura de painel usada para acompanhar planos, metas e iniciativas.</p>
-    <div class="ex">
-      <div class="app" id="ui-cockpit" aria-label="Cockpit de execução estratégica"></div>
-      <div class="tools">
-        <div class="tool"><i></i><div><b>Gerador de apresentações com IA</b><span>Conteúdo estruturado vira PowerPoint no padrão executivo.</span></div></div>
-        <div class="tool"><i></i><div><b>Portfólio de 29 iniciativas</b><span>Funil de mercado, scoring Fibonacci e nível de confiança.</span></div></div>
-        <div class="tool"><i></i><div><b>Planejamento estratégico com KPIs</b><span>Entrevistas, iniciativas e indicadores para acompanhar a estratégia.</span></div></div>
-        <div class="tool"><i></i><div><b>Atualização de bases com Streamlit</b><span>De-para sugerido e atualização por chave, sem deploy.</span></div></div>
-        <div class="tool"><i></i><div><b>Automação de gestão de pedidos</b><span>Tempo de execução 20x menor.</span></div></div>
-        <div class="tool"><i></i><div><b>PMO de orçamento base zero</b><span>Dados das áreas consolidados para o comitê executivo.</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="prompts">
-  <div class="wrap">
-    <div class="eyebrow">Prompt engineering</div>
-    <h2 class="sec-title">Prompts tratados como especificação de engenharia.</h2>
-    <p class="sec-sub">Modelos representativos, com delimitadores, esquema de saída, abstenção e critérios de aceite. Sem dados de clientes.</p>
-    <div class="tabs" id="ptabs" role="tablist" aria-label="Exemplos de prompts"></div>
-    <div class="pbox">
-      <div class="phead"><p id="pdesc"></p><button class="copy" id="copybtn" type="button">Copiar prompt</button></div>
-      <pre id="pcode" tabindex="0"></pre>
-    </div>
-    <div class="techs">
-      <span class="chip">Delimitadores XML</span><span class="chip">Few-shot</span><span class="chip">Saída estruturada (JSON)</span><span class="chip">Regras de abstenção</span><span class="chip">Verificação final</span><span class="chip">Critérios de aceite</span><span class="chip">Escalonamento humano</span>
-    </div>
-  </div>
-</section>
-
-<section class="alt" id="perfil">
-  <div class="wrap">
-    <div class="eyebrow">Perfil</div>
-    <h2 class="sec-title">Consultoria estratégica e engenharia, com IA como acelerador.</h2>
-    <div class="prof" style="margin-top:28px">
-      <div class="pf"><small>Consultoria</small><h3>Peers Consulting</h3><p>Planejamento estratégico, produtos digitais, eficiência operacional, dashboards executivos e soluções com IA.</p></div>
-      <div class="pf"><small>Pesquisa e liderança</small><h3>ARS Control e Hybrid Formula SAE</h3><p>Interface em Python com sinais EMG para reabilitação robótica. Liderança do powertrain a hidrogênio, de maio de 2023 a novembro de 2024.</p></div>
-      <div class="pf"><small>Formação</small><h3>UFLA e Modena</h3><p>Engenharia de Controle e Automação, conclusão em dezembro de 2027. Estudos de Mecatrônica na Università di Modena e Reggio Emilia. Inglês C2.</p></div>
-    </div>
-    <div class="techs" style="margin-top:22px">
-      <span class="chip">Python</span><span class="chip">Streamlit</span><span class="chip">Selenium</span><span class="chip">LLMs (Claude)</span><span class="chip">HTML, CSS e JavaScript</span><span class="chip">Metabase</span><span class="chip">Excel avançado</span><span class="chip">Git</span><span class="chip">Lean Six Sigma Black Belt</span><span class="chip">DMAIC</span><span class="chip">Sistemas de controle</span>
-    </div>
-  </div>
-</section>
-
-<section id="contato" style="padding:56px 0">
-  <div class="wrap">
-    <div class="contact">
-      <div>
-        <h2>Estratégia que vira solução, com IA no meio do caminho.</h2>
-        <p>juliadrpacheco@gmail.com | Lavras, MG | 30 horas semanais</p>
-      </div>
-      <a class="btn" href="https://www.linkedin.com/in/julia-duarte-5a3a32286">Abrir LinkedIn</a>
-    </div>
-  </div>
-</section>
-<footer><div class="wrap">Julia Duarte Rodrigues Pacheco. Projetos de clientes apresentados de forma anonimizada. Interfaces com dados fictícios.</div></footer>
-
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle" aria-hidden="true"></aside>
+<!-- terminal -->
+<div class="term" id="term" role="dialog" aria-label="Terminal">
+  <div class="tb"><i></i><i></i><i></i><span>julia@portfolio ~ </span><button type="button" id="closeTerm" aria-label="Fechar terminal">✕</button></div>
+  <div class="out" id="tout"></div>
+  <form id="tform"><span>❯</span><input id="tin" autocomplete="off" spellcheck="false" aria-label="Comando"></form>
+</div>
 
 <script>
-
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-/* ---------- mosaico da abertura ---------- */
 (function(){
-  var shades=['#C8002A','#9E0020','#E0002D','#7A0016','#B3001F','#D6002A','#8E0018','#EA1D2C','#A8001E','#6E0012','#C8002A','#9E0020','#E0002D','#B3001F','#7A0016','#D6002A','#8E0018','#C8002A'];
-  var icons=[
-   '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
-   '<rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',
-   '<path d="M4 18V9M10 18V5M16 18v-7M22 18H2"/>',
-   '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/>',
-   '<circle cx="12" cy="9" r="3"/><path d="M6 20c1-4 11-4 12 0"/>',
-   '<path d="M4 12h4l3-7 4 14 3-7h2"/>'
-  ];
-  var h='';
-  for(var i=0;i<18;i++){h+='<div style="background:'+shades[i]+'"><svg viewBox="0 0 24 24">'+(i%3===1?icons[(i*5)%6]:'')+'</svg></div>'}
-  document.getElementById('mosaic').innerHTML=h;
-})();
+'use strict';
+var $=function(s,el){return (el||document).querySelector(s)};
+var $$=function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s))};
+var wait=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var T=function(ms){return reduce?0:ms};
 
-/* ---------- CASO 1 · validação de fotos ---------- */
-function shelf(variant,seed){
-  var pal=['#EA1D2C','#F5B301','#2E9E5B','#3B82C4','#8A5CC2'],s='<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="320" height="200" fill="#EFE6DA"/><rect y="176" width="320" height="24" fill="#CFC4B4"/>';
-  var ys=[56,106,156];
-  for(var r=0;r<3;r++){
-    s+='<rect x="10" y="'+(ys[r]+10)+'" width="300" height="6" fill="#B9AD9B"/>';
-    for(var j=0;j<10;j++){
-      var skip=(variant==='gap'&&((j+r+seed)%3===0))||(variant==='part'&&((j+seed)%4===0&&r>0));
-      if(skip)continue;
-      var h=26+((j*7+r*5+seed)%3)*6,c=pal[(j*3+r*2+seed)%5];
-      s+='<rect x="'+(16+j*29)+'" y="'+(ys[r]+10-h)+'" width="24" height="'+h+'" rx="2" fill="'+c+'"/><rect x="'+(19+j*29)+'" y="'+(ys[r]+10-h+6)+'" width="18" height="6" fill="#fff" opacity=".7"/>';
-    }
-  }
-  if(variant!=='gap'){s+='<rect x="10" y="8" width="150" height="30" rx="4" fill="#EA1D2C"/><rect x="20" y="17" width="90" height="6" rx="3" fill="#fff"/><rect x="20" y="27" width="60" height="5" rx="2.5" fill="#fff" opacity=".7"/>'}
-  return s+'</svg>';
-}
-var PH=[
- {id:'#40121',desc:'Ponta de gôndola com duas frentes e comunicação da marca',v:'ok',seed:1,probs:[96,2,2],chk:[['Produto presente','ok'],['Posição conforme contrato','ok'],['Material de marca visível','ok']],dec:'aprovado'},
- {id:'#40122',desc:'Ponta de gôndola com duas frentes e comunicação da marca',v:'gap',seed:2,probs:[7,89,4],chk:[['Produto presente','w'],['Posição conforme contrato','ok'],['Material de marca visível','x']],dec:'reprovado'},
- {id:'#40123',desc:'Exposição em ilha central com precificação visível',v:'part',seed:3,probs:[31,18,51],chk:[['Produto presente','ok'],['Precificação visível','w'],['Material de marca visível','x']],dec:null},
- {id:'#40124',desc:'Ponta de gôndola com duas frentes e comunicação da marca',v:'ok',seed:4,probs:[92,5,3],chk:[['Produto presente','ok'],['Posição conforme contrato','ok'],['Material de marca visível','ok']],dec:null},
- {id:'#40125',desc:'Exposição em ilha central com precificação visível',v:'gap',seed:5,probs:[12,81,7],chk:[['Produto presente','w'],['Precificação visível','x'],['Material de marca visível','x']],dec:null},
- {id:'#40126',desc:'Ponta de gôndola com duas frentes e comunicação da marca',v:'part',seed:6,probs:[44,22,34],chk:[['Produto presente','ok'],['Posição conforme contrato','w'],['Material de marca visível','w']],dec:null}
-];
-PH.forEach(function(p){var m=Math.max.apply(null,p.probs);p.sug=['aprovado','reprovado','justificado'][p.probs.indexOf(m)];p.conf=m;p.fin=p.dec});
-var phSel=2,phNote='Modo ensaio ativo. Nenhuma ação é enviada ao portal do cliente.';
-var LBL={aprovado:'Aprovado',reprovado:'Reprovado',justificado:'Justificado'};
-function renderPhoto(){
-  var el=document.getElementById('ui-photo'),n={pend:0,aprovado:0,reprovado:0,justificado:0},dec=0,agree=0;
-  PH.forEach(function(p){if(!p.fin)n.pend++;else{n[p.fin]++;dec++;if(p.fin===p.sug)agree++}});
-  var p=PH[phSel];
-  var q=PH.map(function(x,i){return '<li><button type="button" data-i="'+i+'" '+(i===phSel?'aria-current="true"':'')+'><span class="th">'+shelf(x.v,x.seed)+'</span><span><b>'+x.id+'</b><small>'+x.sug+' '+x.conf+'%</small></span>'+(x.fin?'<span class="st '+x.fin+'">'+LBL[x.fin]+'</span>':'')+'</button></li>'}).join('');
-  var cols={0:'#2E9E5B',1:'#EA1D2C',2:'#E39A0B'},nm=['Aprovado','Reprovado','Justificado'];
-  var pr=p.probs.map(function(v,i){return '<div class="prob"><span>'+nm[i]+'</span><div class="bar"><i style="width:'+v+'%;background:'+cols[i]+'"></i></div><b>'+v+'%</b></div>'}).join('');
-  var ck=p.chk.map(function(c){return '<li class="'+(c[1]==='ok'?'':c[1])+'">'+esc(c[0])+'</li>'}).join('');
-  el.innerHTML='<div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Validação de contrapartidas</b><span class="badge">Modo ensaio</span><span class="sp"></span><span class="demo">Dados fictícios</span></div>'+
-  '<div class="kp"><div><small>Pendentes</small><b>'+n.pend+'</b></div><div><small>Aprovadas</small><b>'+n.aprovado+'</b></div><div><small>Reprovadas</small><b>'+n.reprovado+'</b></div><div><small>Justificadas</small><b>'+n.justificado+'</b></div><div><small>Modelo e analista</small><b>'+(dec?Math.round(agree/dec*100)+'%':'-')+'</b></div></div>'+
-  '<div class="split"><ul class="queue">'+q+'</ul><div class="detail"><div class="photo">'+shelf(p.v,p.seed)+'</div>'+
-  '<div class="dgrid"><div class="mini"><h4>Sugestão do modelo</h4>'+pr+'</div><div class="mini"><h4>Critérios verificados</h4><ul class="chk">'+ck+'</ul></div></div>'+
-  '<div class="mini"><h4>Contrapartida esperada</h4><div style="font-size:13.5px">'+esc(p.desc)+'</div></div>'+
-  '<div class="acts"><button type="button" class="a-ok" data-d="aprovado">Aprovar</button><button type="button" class="a-no" data-d="reprovado">Reprovar</button><button type="button" class="a-ju" data-d="justificado">Justificar</button></div>'+
-  '<div class="note" role="status">'+esc(phNote)+'</div></div></div>';
-}
-document.getElementById('ui-photo').addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;
-  if(b.hasAttribute('data-i')){phSel=+b.getAttribute('data-i');renderPhoto();return}
-  if(b.hasAttribute('data-d')){
-    var p=PH[phSel];p.fin=b.getAttribute('data-d');
-    phNote='Decisão registrada em '+p.id+'. O exemplo entra no próximo ciclo de aprendizado.';
-    var nx=PH.findIndex(function(x,i){return !x.fin&&i>phSel});if(nx<0)nx=PH.findIndex(function(x){return !x.fin});
-    if(nx>=0)phSel=nx;renderPhoto();
-  }
-});
-renderPhoto();
-
-/* ---------- CASO 2 · Marco ---------- */
-var FL={
- 'Diário':[
-  {src:'Diário oficial',t:'Portaria altera procedimento de outorga de autorização',s:'Define novo rito e reduz o prazo de manifestação de 30 para 15 dias.',r:'alta'},
-  {src:'Agência reguladora',t:'Abertura de consulta pública sobre regras de acesso à rede',s:'Contribuições abertas por 45 dias. Impacta tema de acesso monitorado.',r:'alta'},
-  {src:'Resenha legislativa',t:'Projeto de lei em tramitação sobre incentivos setoriais',s:'Aguarda parecer de comissão. Sem efeito imediato.',r:'media'},
-  {src:'Diário oficial',t:'Ato administrativo de nomeação de diretoria',s:'Fora dos temas monitorados.',r:'baixa'}],
- 'Semanal':[
-  {src:'Agência reguladora',t:'Pauta da reunião da diretoria colegiada',s:'Dois processos monitorados constam na pauta da quinta-feira.',r:'alta'},
-  {src:'Ata de reunião',t:'Ata da reunião anterior publicada',s:'Decisão favorável em processo acompanhado pelo escritório.',r:'media'},
-  {src:'Câmara de comercialização',t:'Atas de conselho de administração',s:'Sem deliberação sobre temas monitorados.',r:'baixa'}],
- 'SEI':[
-  {src:'Processo administrativo',t:'Novo andamento em processo monitorado',s:'Despacho com pedido de complementação em 10 dias.',r:'alta'},
-  {src:'Processo administrativo',t:'Juntada de documento ao processo',s:'Sem efeito sobre prazos.',r:'baixa'}],
- 'Judiciais':[
-  {src:'Tribunal',t:'Publicação de decisão em processo de cliente',s:'Prazo para manifestação aberto. Encaminhar ao advogado responsável.',r:'alta'},
-  {src:'Tribunal',t:'Movimentação de rotina',s:'Juntada de petição. Sem prazo associado.',r:'baixa'}]
-};
-var mkCur='Diário';
-function renderMarco(){
-  var el=document.getElementById('ui-marco'),keys=Object.keys(FL);
-  var nav=keys.map(function(k){return '<button type="button" data-k="'+k+'" '+(k===mkCur?'aria-current="true"':'')+'>'+k+'<em>'+FL[k].length+'</em></button>'}).join('');
-  var feed=FL[mkCur].map(function(i){return '<div class="it"><div class="top"><span class="pill '+i.r+'">'+(i.r==='alta'?'Alta':i.r==='media'?'Média':'Baixa')+'</span><span>'+esc(i.src)+'</span></div><h4>'+esc(i.t)+'</h4><p>'+esc(i.s)+'</p></div>'}).join('');
-  var alta=FL[mkCur].filter(function(i){return i.r==='alta'}),med=FL[mkCur].filter(function(i){return i.r==='media'});
-  var mail='<div class="mail"><b>Atualizações '+mkCur.toLowerCase()+'s</b>'+(alta.length?'<div style="font-size:12px;color:var(--soft)">Prioridade alta</div><ul>'+alta.map(function(i){return '<li>'+esc(i.t)+'</li>'}).join('')+'</ul>':'<div style="font-size:12px;color:var(--soft)">Sem itens de prioridade alta.</div>')+(med.length?'<div style="font-size:12px;color:var(--soft);margin-top:8px">Para acompanhar</div><ul>'+med.map(function(i){return '<li>'+esc(i.t)+'</li>'}).join('')+'</ul>':'')+'</div>';
-  el.innerHTML='<div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Marco</b><span class="badge g">Agente ativo</span><span class="sp"></span><span class="demo">Dados fictícios</span></div>'+
-  '<div class="mk"><div class="mk-nav">'+nav+'<div class="mk-agent"><b>Marco</b>Coleta, classifica e resume. Itens de baixa confiança vão para revisão humana.</div></div>'+
-  '<div class="mk-feed">'+feed+'</div><div class="mk-mail"><h4>Boletim gerado</h4>'+mail+'<div style="margin-top:10px"><span class="badge n">Revisão humana antes do envio</span></div></div></div>';
-}
-document.getElementById('ui-marco').addEventListener('click',function(e){var b=e.target.closest('button[data-k]');if(!b)return;mkCur=b.getAttribute('data-k');renderMarco()});
-renderMarco();
-
-/* ---------- CASO 3 · bases de preço ---------- */
-var ROWS=[['Item 1042','Categoria A','Fornecedor 03',8.90,7.45,19.5,88],['Item 2210','Categoria B','Fornecedor 11',15.20,13.10,16.0,74],['Item 0877','Categoria A','Fornecedor 07',4.35,3.82,13.9,66],['Item 3391','Categoria C','Fornecedor 02',22.80,20.30,12.3,57],['Item 1560','Categoria D','Fornecedor 09',6.10,5.55,9.9,43],['Item 2784','Categoria B','Fornecedor 05',11.40,10.60,7.5,31]];
-var STEPS=['Upload','Normalização','Cruzamento','Comparação','Ranking'],prRun=-1,prTimer=null;
-function fmt(n){return n.toFixed(2).replace('.',',')}
-function renderPrice(){
-  var el=document.getElementById('ui-price');
-  var st=STEPS.map(function(s,i){var c=prRun<0||i<prRun?'done':(i===prRun?'run':'');return '<span class="s '+c+'"><i></i>'+s+'</span>'}).join('<span class="ar">&rsaquo;</span>');
-  var show=prRun<0;
-  var rows=ROWS.map(function(r,i){return '<tr style="opacity:'+(show?1:.35)+'"><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+fmt(r[3])+'</td><td>'+fmt(r[4])+'</td><td>+'+r[5].toFixed(1).replace('.',',')+'%</td><td><div class="ob"><div class="bar"><i style="width:'+r[6]+'%;background:'+(i<2?'#EA1D2C':'#F29AA0')+'"></i></div><b>'+r[6]+'</b></div></td></tr>'}).join('');
-  el.innerHTML='<div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Oportunidades de preço</b><span class="sp"></span><span class="demo">Dados fictícios</span></div>'+
-  '<div class="up"><div class="file"><i>XLS</i><div><b>Cadastro de produtos</b>3 colunas-chave</div></div><div class="file"><i>XLS</i><div><b>Condições comerciais</b>por fornecedor</div></div><div class="file"><i>XLS</i><div><b>Preços praticados</b>por loja e data</div></div></div>'+
-  '<div class="pipe">'+st+'<button type="button" class="btn btn-out" id="rerun">Reexecutar</button></div>'+
-  '<div class="tbl-wrap"><table class="t"><thead><tr><th>Produto</th><th>Categoria</th><th>Fornecedor</th><th>Praticado (R$)</th><th>Referência (R$)</th><th>Gap</th><th>Índice de oportunidade</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-  '<div class="foot"><span><b>Bases cruzadas</b> sem descarte silencioso. Linhas de entrada = cruzadas + pendências.</span><span><b>41</b> linhas em pendências para revisão</span></div>';
-}
-document.getElementById('ui-price').addEventListener('click',function(e){
-  if(!e.target.closest('#rerun'))return;
-  clearTimeout(prTimer);prRun=0;renderPrice();
-  (function tick(){prTimer=setTimeout(function(){prRun++;if(prRun>=STEPS.length){prRun=-1;renderPrice();return}renderPrice();tick()},650)})();
-});
-renderPrice();
-
-/* ---------- ferramentas executivas · cockpit ---------- */
-(function(){
-  var RED='#EA1D2C',GREY='#D9D9D9';
-  var labels=['Jan','Fev','Mar','Abr','Mai','Jun'],a=[10,12,12,14,14,16],b=[9,12,13,12,15,17],max=20;
-  var W=640,H=230,l=34,bt=26,bw=22,gap=(W-l-10)/labels.length,s='<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Gráfico ilustrativo de entregas por mês">';
-  for(var g=0;g<=4;g++){var y=H-bt-(H-bt-14)*g/4;s+='<line x1="'+l+'" x2="'+(W-6)+'" y1="'+y+'" y2="'+y+'" stroke="#EEE"/><text x="'+(l-6)+'" y="'+(y+4)+'" text-anchor="end">'+Math.round(max*g/4)+'</text>'}
-  labels.forEach(function(lb,i){
-    var x=l+gap*i+gap/2-bw-2,ha=(H-bt-14)*a[i]/max,hb=(H-bt-14)*b[i]/max;
-    s+='<rect x="'+x+'" y="'+(H-bt-ha)+'" width="'+bw+'" height="'+ha+'" rx="4" fill="'+GREY+'"/><rect x="'+(x+bw+4)+'" y="'+(H-bt-hb)+'" width="'+bw+'" height="'+hb+'" rx="4" fill="'+RED+'"/><text class="val" x="'+(x+bw+4+bw/2)+'" y="'+(H-bt-hb-5)+'" text-anchor="middle">'+b[i]+'</text><text x="'+(x+bw+2)+'" y="'+(H-8)+'" text-anchor="middle">'+lb+'</text>';
-  });
-  s+='</svg>';
-  document.getElementById('ui-cockpit').innerHTML='<div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Cockpit de execução estratégica</b><span class="sp"></span><span class="demo">Dados fictícios</span></div>'+
-  '<div class="tiles"><div class="tile"><small>Entregas no prazo</small><b>87%</b></div><div class="tile warn"><small>Iniciativas em risco</small><b>3 de 14</b></div><div class="tile"><small>Orçamento executado</small><b>62%</b></div><div class="tile warn"><small>KPIs abaixo da meta</small><b>2</b></div></div>'+
-  '<div class="cpad"><div class="ct">Entregas concluídas por mês</div><div class="lg"><span><i style="background:'+GREY+'"></i>Meta</span><span><i style="background:'+RED+'"></i>Realizado</span></div>'+s+'</div>';
-})();
-
-/* ---------- barra de progresso e contadores ---------- */
-(function(){
-  var p=document.getElementById('progress');
-  function f(){var h=document.documentElement.scrollHeight-innerHeight;p.style.width=(h>0?scrollY/h*100:0)+'%'}
-  addEventListener('scroll',f,{passive:true});f();
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce)return;
-  document.querySelectorAll('[data-to]').forEach(function(el){
-    var to=+el.getAttribute('data-to'),pre=el.getAttribute('data-pre')||'',suf=el.getAttribute('data-suf')||'',t0=null;
-    function step(t){if(!t0)t0=t;var k=Math.min((t-t0)/1100,1),v=Math.round(to*(1-Math.pow(1-k,3)));el.textContent=pre+v+suf;if(k<1)requestAnimationFrame(step)}
-    requestAnimationFrame(step);
-  });
-})();
-
-/* ---------- fluxos clicáveis dos casos ---------- */
-var FLOWS={
- 1:[['Histórico','Fotos já classificadas','As fotos já classificadas pelos analistas formam a base de treino. Existe um controle prévio que garante local e data corretos, então o modelo se concentra no conteúdo da imagem.'],
-    ['Treino interno','Sem IA paga','O modelo é treinado e executado internamente, sem custo recorrente, o que atende ao alto volume semanal.'],
-    ['Sugestão','Com nível de confiança','Para cada foto, o modelo sugere aprovado, reprovado ou justificado e informa a confiança da sugestão.'],
-    ['Decisão humana','Aprovar, reprovar, justificar','O analista decide pela interface. O início é em modo ensaio, somente leitura: o sistema observa e o analista executa os cliques no portal.'],
-    ['Aprendizado','Cada ação vira exemplo','Cada decisão do analista é registrada e entra no próximo ciclo de treino do modelo.']],
- 2:[['Coleta','Fontes oficiais','Automação em Python e Selenium coleta as fontes públicas. Perfil de navegador persistente e execução agendada contornam desafios anti-bot.'],
-    ['Classificação','Relevância por tema','Um prompt com esquema JSON classifica a relevância por tema, com evidência literal do texto e regra de abstenção.'],
-    ['Resumo','Linguagem executiva','O conteúdo é resumido e padronizado por fluxo, para leitura rápida pelos sócios.'],
-    ['Revisão','Itens de baixa confiança','Itens com baixa confiança vão para revisão humana antes de entrar no boletim.'],
-    ['Entrega','E-mail e plataforma','O boletim segue por e-mail na cadência definida e as informações são consolidadas em uma plataforma com acesso por senha.']],
- 3:[['Upload','Três bases','O processo recebe as bases de cadastro, condições comerciais e preços praticados.'],
-    ['Normalização','Texto e tipos','Padroniza caixa, acentos, espaços e tipos numéricos, registrando cada transformação em log.'],
-    ['Cruzamento','Chaves e de-para','Cruza por código de produto e fornecedor, com tabelas de-para. Linhas sem correspondência vão para pendências, sem descarte silencioso.'],
-    ['Comparação','Preço contra referência','Compara o preço praticado com a referência, em valor e em percentual.'],
-    ['Ranking','Potencial de ganho','Pontua e ordena as divergências por potencial de ganho, para atuar primeiro onde há mais valor.']]
-};
-Object.keys(FLOWS).forEach(function(k){
-  var box=document.getElementById('flow-'+k),det=document.getElementById('fdet-'+k),cur=0;
-  function draw(){
-    box.innerHTML=FLOWS[k].map(function(s,i){return '<button type="button" class="fs" data-i="'+i+'" aria-pressed="'+(i===cur)+'">'+esc(s[0])+'<span>'+esc(s[1])+'</span></button>'}).join('');
-    det.innerHTML='<b>'+esc(FLOWS[k][cur][0])+'.</b>'+esc(FLOWS[k][cur][2]);
-  }
-  box.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cur=+b.getAttribute('data-i');draw()});
-  draw();
-});
-
-/* ---------- simulador ---------- */
-(function(){
-  var r1=document.getElementById('r1'),r2=document.getElementById('r2'),r3=document.getElementById('r3');
-  function n(v){return Number(v).toLocaleString('pt-BR')}
-  function upd(){
-    var f=+r1.value,m=+r2.value,a=+r3.value;
-    document.getElementById('o1').textContent=n(f);document.getElementById('o2').textContent=m+' s';document.getElementById('o3').textContent=a+' s';
-    var hm=f*m/3600,ha=f*Math.min(a,m)/3600,sv=hm-ha,eq=sv/40;
-    document.getElementById('simres').innerHTML='<div class="rk"><small>Horas por semana, manual</small><b>'+hm.toFixed(1).replace('.',',')+' h</b></div><div class="rk"><small>Horas por semana, com sugestão</small><b>'+ha.toFixed(1).replace('.',',')+' h</b></div><div class="rk hl"><small>Horas liberadas por semana</small><b>'+sv.toFixed(1).replace('.',',')+' h</b></div><div class="rk hl"><small>Equivalente em analistas de 40 h</small><b>'+eq.toFixed(1).replace('.',',')+'</b></div>';
-    var mx=Math.max(hm,1);
-    document.getElementById('simbars').innerHTML='<div><span>Manual</span><div class="bar"><i style="width:100%;background:#B0B0B0"></i></div></div><div><span>Com sugestão</span><div class="bar"><i style="width:'+(ha/mx*100)+'%;background:var(--red)"></i></div></div>';
-  }
-  [r1,r2,r3].forEach(function(r){r.addEventListener('input',upd)});upd();
-})();
-
-/* ---------- repositório ---------- */
+/* ============ DADOS ============ */
 var R=[
-{s:'marco-agente-regulatorio',n:'Marco, agente de monitoramento regulatório',c:'Agentes e IA',st:'Em evolução',o:'Agente que monitora fontes oficiais e entrega o boletim de um escritório de advocacia.',dor:'Quatro rotinas de conferência manual em várias fontes.',est:'Mapeei os fluxos diário, semanal, de andamentos e judiciais, e defini temas, cadência e o que exige revisão humana.',ia:'Agente de IA coleta, classifica a relevância, resume e monta o boletim, com prompts de esquema JSON e abstenção.',res:'Visão única das atualizações e cadência mantida sem esforço manual.',stack:['AI Agents','Prompt Engineering','Python','Selenium','JSON'],steps:['Coleta das fontes autorizadas','Classificação por tema com evidência literal','Resumo em linguagem executiva','Revisão humana por exceção','Entrega por e-mail e plataforma']},
+{s:'marco-agente-regulatorio',n:'Marco, agente de monitoramento regulatório',c:'Agentes e IA',st:'Em evolução',o:'Agente que monitora fontes oficiais e entrega o boletim de um escritório de advocacia.',dor:'Quatro rotinas de conferência manual em várias fontes.',est:'Mapeei os fluxos diário, semanal, de andamentos e judiciais, e defini temas, cadência e o que exige revisão humana.',ia:'Agente de IA coleta, classifica a relevância, resume e monta o boletim, com prompts de esquema JSON e abstenção.',res:'Visão única das atualizações e cadência mantida sem esforço manual.',stack:['AI Agents','Prompt Engineering','Python','Selenium','JSON'],steps:['Coleta das fontes autorizadas','Classificação por tema com evidência literal','Resumo em linguagem executiva','Revisão humana por exceção','Entrega por e-mail e plataforma'],demo:'#demo-marco'},
 {s:'plataforma-web-marco',n:'Plataforma web do Marco',c:'Ferramentas',st:'Em evolução',o:'Site protegido por senha que consolida os quatro fluxos do monitoramento.',dor:'Atualizações distribuídas em e-mails e rotinas separadas, sem visão consolidada.',est:'Defini o escopo do produto e a decisão de proteger o acesso por senha desde a primeira versão.',ia:'Protótipo visual evoluído para site funcional com apoio de LLM (vibe coding), alimentado pelas automações.',res:'Plataforma única para o escritório, em evolução.',stack:['HTML, CSS e JavaScript','Vibe coding','AI Agents'],steps:['Protótipo visual','Site funcional com acesso por senha','Integração com as automações','Consolidação dos quatro fluxos']},
 {s:'boletim-diario-automatizado',n:'Boletim diário e semanal automatizado',c:'Automação',st:'Em evolução',o:'Envio diário e semanal de atualizações regulatórias por e-mail.',dor:'Montagem manual do e-mail de atualizações todos os dias.',est:'Defini o escopo das fontes, a janela de coleta e a cadência de envios ao longo da semana.',ia:'Automação em Python gera e envia o conteúdo. Decisão de entregar a automação primeiro e acoplar o agente de IA depois.',res:'Rotina previsível e repetível.',stack:['Python','Automação de processos','Agendamento'],steps:['Coleta das fontes','Filtro por escopo','Montagem do e-mail','Envio na cadência definida']},
 {s:'monitor-processos-sei',n:'Monitor de processos administrativos',c:'Automação',st:'Em evolução',o:'Consulta automatizada de andamentos em processos de um órgão regulador.',dor:'Conferência manual semanal de processos em sistema com proteção anti-bot.',est:'Listei os processos monitorados e a rotina de conferência a ser substituída.',ia:'Automação com Selenium, perfil de navegador persistente e execução agendada, desenvolvida com apoio de LLM.',res:'Conferência recorrente sem esforço manual.',stack:['Selenium','Python','Agendamento'],steps:['Acesso com perfil persistente','Consulta dos processos','Registro dos andamentos','Alerta de mudanças']},
-{s:'classificador-fotos-ml',n:'Classificador de fotos de contrapartidas',c:'Machine learning',st:'Em evolução',o:'Modelo que classifica fotos em aprovado, reprovado ou justificado.',dor:'Aprovação manual de cerca de 10 mil fotos por semana.',est:'Decidi treinar internamente com o histórico já classificado, para ter custo zero e controle, mantendo a decisão final humana.',ia:'Modelo de classificação de imagens com nível de confiança, que aprende com cada decisão do analista.',res:'O analista passa a decidir por exceção, sem custo recorrente.',stack:['Machine Learning','Classificação de imagens','Python','Human-in-the-loop'],steps:['Treino sobre o histórico classificado','Sugestão com confiança','Decisão do analista','Retreino com as decisões']},
-{s:'painel-aprovacao-contrapartidas',n:'Painel de aprovação de contrapartidas',c:'Ferramentas',st:'Em evolução',o:'Interface de revisão ligada às pendências do portal do cliente.',dor:'Aprovações feitas uma a uma, direto no portal.',est:'Defini o modo ensaio somente leitura, em que a analista executa os cliques e o sistema observa.',ia:'Interface com sugestão do modelo e registro de cada ação, que alimenta o aprendizado.',res:'Controle total do analista com sugestão automática.',stack:['Python','Interface web','Human-in-the-loop'],steps:['Leitura das pendências','Sugestão do modelo','Clique do analista','Registro para aprendizado']},
-{s:'cruzamento-bases-preco',n:'Cruzamento de bases para oportunidades de preço',c:'Dados e produto',st:'Entregue',o:'Código que cruza bases de uma rede de supermercados e ranqueia oportunidades.',dor:'Cadastro, condições comerciais e preços em bases separadas, sem priorização.',est:'Defini as chaves, as regras de comparação e o critério de priorização por potencial.',ia:'Código em Python gerado e iterado com LLM a partir de uma especificação estruturada.',res:'Análise repetível, com pendências rastreadas e foco no maior valor.',stack:['Python','Análise de dados com IA','De-para','Prompt Engineering'],steps:['Upload das bases','Normalização','Cruzamento por chaves','Comparação com a referência','Ranking por potencial']},
+{s:'classificador-fotos-ml',n:'Classificador de fotos de contrapartidas',c:'Machine learning',st:'Em evolução',o:'Modelo que classifica fotos em aprovado, reprovado ou justificado.',dor:'Aprovação manual de cerca de 10 mil fotos por semana.',est:'Decidi treinar internamente com o histórico já classificado, para ter custo zero e controle, mantendo a decisão final humana.',ia:'Modelo de classificação de imagens com nível de confiança, que aprende com cada decisão do analista.',res:'O analista passa a decidir por exceção, sem custo recorrente.',stack:['Machine Learning','Classificação de imagens','Python','Human-in-the-loop'],steps:['Treino sobre o histórico classificado','Sugestão com confiança','Decisão do analista','Retreino com as decisões'],demo:'#demo-ml'},
+{s:'painel-aprovacao-contrapartidas',n:'Painel de aprovação de contrapartidas',c:'Ferramentas',st:'Em evolução',o:'Interface de revisão ligada às pendências do portal do cliente.',dor:'Aprovações feitas uma a uma, direto no portal.',est:'Defini o modo ensaio somente leitura, em que a analista executa os cliques e o sistema observa.',ia:'Interface com sugestão do modelo e registro de cada ação, que alimenta o aprendizado.',res:'Controle total do analista com sugestão automática.',stack:['Python','Interface web','Human-in-the-loop'],steps:['Leitura das pendências','Sugestão do modelo','Clique do analista','Registro para aprendizado'],demo:'#demo-ml'},
+{s:'cruzamento-bases-preco',n:'Cruzamento de bases para oportunidades de preço',c:'Dados e produto',st:'Entregue',o:'Código que cruza bases de uma rede de supermercados e ranqueia oportunidades.',dor:'Cadastro, condições comerciais e preços em bases separadas, sem priorização.',est:'Defini as chaves, as regras de comparação e o critério de priorização por potencial.',ia:'Código em Python gerado e iterado com LLM a partir de uma especificação estruturada.',res:'Análise repetível, com pendências rastreadas e foco no maior valor.',stack:['Python','Análise de dados com IA','De-para','Prompt Engineering'],steps:['Upload das bases','Normalização','Cruzamento por chaves','Comparação com a referência','Ranking por potencial'],demo:'#demo-dados'},
 {s:'atualizador-bases-streamlit',n:'Atualizador de bases de fornecedores',c:'Ferramentas',st:'Em evolução',o:'Aplicação que alinha bases ao template e o atualiza por chave.',dor:'Bases de fornecedores em formatos diferentes, atualizadas à mão.',est:'Defini a chave ID Linha, a regra de preservar o valor antigo quando a base nova está vazia e a proteção de colunas com fórmula.',ia:'Streamlit com sugestão de de-para por similaridade de nomes, distribuível sem deploy.',res:'Menos trabalho manual e menor risco de sobrescrever campos calculados.',stack:['Python','Streamlit','Excel','Similaridade de texto'],steps:['Leitura da base recebida','Sugestão de de-para','Escolha das colunas a atualizar','Atualização por ID Linha']},
 {s:'gerador-apresentacoes-ia',n:'Gerador de apresentações executivas',c:'Ferramentas',st:'Entregue',o:'Ferramenta de IA que transforma conteúdo estruturado em PowerPoint.',dor:'Esforço manual de diagramação em padrão executivo.',est:'Codifiquei o padrão executivo: título narrativo, subtítulo curto, só dados reais e gráficos editáveis.',ia:'A ferramenta monta a apresentação a partir do conteúdo estruturado, sem diagramação manual.',res:'Entrega padronizada e tempo liberado para a análise.',stack:['Prompt Engineering','Geração de .pptx','Automação com IA'],steps:['Conteúdo estruturado','Aplicação do padrão visual','Geração do arquivo','Revisão do consultor']},
 {s:'automacao-gestao-pedidos',n:'Automação da gestão de pedidos',c:'Automação',st:'Entregue',o:'Fluxo de pedidos de uma empresa do setor educacional automatizado de ponta a ponta.',dor:'Processo manual e demorado.',est:'Mapeei o processo, identifiquei desperdícios e apliquei melhoria contínua.',ia:'Automação ponta a ponta do fluxo, com conexão entre sistemas.',res:'Tempo de execução 20x menor.',stack:['Mapeamento de processos','Automação de processos','DMAIC','PDCA'],steps:['Mapeamento do processo','Pontos de automação','Automação do fluxo','Melhoria contínua']},
 {s:'portfolio-29-iniciativas',n:'Portfólio de 29 iniciativas de produtos digitais',c:'Dados e produto',st:'Entregue',o:'Priorização de um portfólio de produtos digitais de uma consultoria.',dor:'Decidir onde investir entre dezenas de ideias de produto.',est:'Funil de mercado total até alcançável, scoring Fibonacci (0, 1, 3, 5 e 8), nível de confiança, make or buy e business cases.',ia:'IA e Python aceleram a pesquisa, a estruturação da base e os cálculos reprodutíveis, com a regra de nunca inventar dado.',res:'Portfólio priorizado, com o cockpit de execução estratégica e os agentes de monitoramento regulatório entre os destaques.',stack:['Business cases','TAM e SOM','Scoring','Python','Inteligência de mercado'],steps:['Base de iniciativas e mercado','Funil de alcance e ticket','Scoring com confiança','Recomendação priorizada']},
-{s:'dashboards-executivos-html',n:'Dashboards executivos e painéis em HTML',c:'Dashboards',st:'Entregue',o:'Painéis de indicadores com resumo no topo, metas e semáforos.',dor:'Executivos sem visão clara de indicadores e metas.',est:'Defino KPIs, metas e semáforos, com o resumo antes do detalhe.',ia:'Painéis em HTML, JavaScript e SVG construídos com LLM como par de programação, além de dashboards em Metabase.',res:'Painéis prontos para apresentar, em ciclos curtos.',stack:['Vibe coding','HTML, CSS e JavaScript','SVG','Metabase','KPIs'],steps:['Definição de KPIs e metas','Especificação por prompt','Iteração com LLM','Publicação do painel']},
+{s:'dashboards-executivos-html',n:'Dashboards executivos e painéis em HTML',c:'Dashboards',st:'Entregue',o:'Painéis de indicadores com resumo no topo, metas e semáforos.',dor:'Executivos sem visão clara de indicadores e metas.',est:'Defino KPIs, metas e semáforos, com o resumo antes do detalhe.',ia:'Painéis em HTML, JavaScript e SVG construídos com LLM como par de programação, além de dashboards em Metabase.',res:'Painéis prontos para apresentar, em ciclos curtos.',stack:['Vibe coding','HTML, CSS e JavaScript','SVG','Metabase','KPIs'],steps:['Definição de KPIs e metas','Especificação por prompt','Iteração com LLM','Publicação do painel'],demo:'#vibe'},
 {s:'pmo-orcamento-base-zero',n:'PMO de orçamento base zero',c:'Dados e produto',st:'Entregue',o:'Orçamento de custos do ano seguinte de um grupo educacional.',dor:'Orçamento bottom-up para confrontar com a diretriz top-down, com dados dispersos nas áreas.',est:'Atuei como PMO: cronograma, cobrança das áreas, validação da qualidade dos dados e preparação para o comitê executivo.',ia:null,res:'Orçamento consolidado e pronto para decisão da liderança.',stack:['PMO','Excel avançado','Gestão de stakeholders'],steps:['Cronograma e responsáveis','Consolidação por área','Validação da qualidade','Preparação para o comitê']},
 {s:'negociacao-fornecedores-ondas',n:'Negociação com fornecedores por ondas',c:'Dados e produto',st:'Em evolução',o:'Estrutura de negociação de uma rede varejista com fornecedores.',dor:'Bonificações pontuais sem recorrência amarrada em contrato.',est:'Estruturei as ondas, os lotes por concentração de valor e o grau de confiança por fornecedor, bandeira e família.',ia:'Tratamento e cruzamento das bases com código, apoiado por IA.',res:'Esforço concentrado nos fornecedores de maior representatividade.',stack:['Análise de dados','Excel avançado','Python','Priorização'],steps:['Análise da bonificação','Medida de recorrência','Lotes por prioridade','Piloto com comprador']},
-{s:'biblioteca-de-prompts',n:'Biblioteca de prompts como especificação',c:'Agentes e IA',st:'Em evolução',o:'Prompts reutilizáveis para classificação, agentes, código e auditoria.',dor:'Resultados irregulares com prompts informais.',est:'Trato cada prompt como especificação: papel, contexto, regras, saída e critérios de aceite.',ia:'Esquema JSON, abstenção e verificação final reduzem invenção de dados e tornam a saída validável.',res:'Prompts reutilizáveis entre casos.',stack:['Prompt Engineering','JSON','Few-shot','Guardrails'],steps:['Papel e contexto','Procedimento e regras','Formato de saída','Critérios de aceite']},
-{s:'painel-academico-html',n:'Painel acadêmico pessoal',c:'Dashboards',st:'Em evolução',o:'Painel em HTML que concentra a vida acadêmica.',dor:'Controle de faltas, notas e avaliações disperso.',est:'Defini o que acompanhar: faltas, notas obtidas e restantes, aulas do dia e próximas avaliações.',ia:'Página construída com LLM em HTML, CSS e JavaScript.',res:'Visão única do semestre.',stack:['Vibe coding','HTML, CSS e JavaScript'],steps:['Definição dos indicadores','Construção com LLM','Uso no semestre']},
+{s:'biblioteca-de-prompts',n:'Biblioteca de prompts como especificação',c:'Agentes e IA',st:'Em evolução',o:'Prompts reutilizáveis para classificação, agentes, código e auditoria.',dor:'Resultados irregulares com prompts informais.',est:'Trato cada prompt como especificação: papel, contexto, regras, saída e critérios de aceite.',ia:'Esquema JSON, abstenção e verificação final reduzem invenção de dados e tornam a saída validável.',res:'Prompts reutilizáveis entre casos.',stack:['Prompt Engineering','JSON','Few-shot','Guardrails'],steps:['Papel e contexto','Procedimento e regras','Formato de saída','Critérios de aceite'],demo:'#prompts'},
+{s:'painel-academico-html',n:'Painel acadêmico pessoal',c:'Dashboards',st:'Em evolução',o:'Painel em HTML que concentra a vida acadêmica.',dor:'Controle de faltas, notas e avaliações disperso.',est:'Defini o que acompanhar: faltas, notas obtidas e restantes, aulas do dia e próximas avaliações.',ia:'Página construída com LLM em HTML, CSS e JavaScript.',res:'Visão única do semestre.',stack:['Vibe coding','HTML, CSS e JavaScript'],steps:['Definição dos indicadores','Construção com LLM','Uso no semestre'],demo:'#vibe'},
 {s:'gui-reabilitacao-emg',n:'Interface para reabilitação robótica',c:'Engenharia',st:'Entregue',o:'Interface em Python que integra sinais EMG a um sistema robótico.',dor:'Visualizar sinais de sensores EMG para a interação entre usuário e robô.',est:'Atuei em ambiente de pesquisa multidisciplinar e internacional.',ia:null,res:'Solução desenvolvida e testada em ambiente de pesquisa.',stack:['Python','GUI','Sinais EMG','Processamento de sinais'],steps:['Aquisição dos sinais','Processamento','Visualização','Teste em pesquisa']},
 {s:'powertrain-hidrogenio',n:'Powertrain a hidrogênio e segurança',c:'Engenharia',st:'Entregue',o:'Veículo de competição movido a hidrogênio.',dor:'Integrar controle, eletrônica e powertrain com segurança.',est:'Liderei planejamento, prioridades e integração entre subsistemas, além da gestão de riscos.',ia:null,res:'Controle da célula a combustível e do motor elétrico, com detecção de vazamento e desligamento de emergência.',stack:['Sistemas de controle','Modelagem e simulação','Gestão de riscos'],steps:['Planejamento e prioridades','Modelagem e simulação','Controle','Segurança do sistema']},
-{s:'simulacao-hil',n:'Simulação Hardware-in-the-Loop',c:'Engenharia',st:'Em evolução',o:'Projeto acadêmico de simulação com hardware no circuito, como líder geral.',dor:'Times separados que precisavam entregar um sistema integrado.',est:'Reestruturei o grupo em mecânica, elétrica e interface, com cronogramas e riscos alinhados.',ia:null,res:'Evolução da planta, com atrasos, ruído e mais variáveis, e do controle (LQR e LQI).',stack:['Hardware-in-the-Loop','ESP32','Modelagem','LQR e LQI'],steps:['Alinhamento de cronogramas','Modelo da planta','Projeto de controle','Integração com a interface']},
+{s:'simulacao-hil',n:'Simulação Hardware-in-the-Loop',c:'Engenharia',st:'Em evolução',o:'Gêmeo digital de um drone com hardware no circuito, com liderança geral do projeto.',dor:'Times separados que precisavam entregar um sistema integrado.',est:'Reestruturei o grupo em mecânica, elétrica e interface, com cronogramas e riscos alinhados.',ia:null,res:'Evolução da planta, com atrasos, ruído e mais variáveis, e do controle (LQR e LQI).',stack:['Hardware-in-the-Loop','ESP32','Modelagem','LQR e LQI'],steps:['Alinhamento de cronogramas','Modelo da planta','Projeto de controle','Integração com a interface']},
 {s:'tcc-plataforma-cbd',n:'TCC, plataforma robotizada de deposição',c:'Engenharia',st:'Em evolução',o:'Plataforma robotizada de deposição por banho químico para filmes de Cu2-xSe.',dor:'Automatizar um processo de deposição química de filmes finos.',est:'Trabalho de conclusão de curso em Engenharia de Controle e Automação.',ia:null,res:'Em desenvolvimento.',stack:['Robótica','Controle','Automação'],steps:['Projeto da plataforma','Controle do processo','Validação']},
 {s:'iniciacao-cientifica',n:'Iniciação científica em compósitos',c:'Engenharia',st:'Em evolução',o:'Pesquisa sobre compósitos poliméricos com nanopartículas de seleneto de cobre.',dor:null,est:'Pesquisa na UFLA com orientação docente.',ia:null,res:null,stack:['Pesquisa','Materiais'],steps:[]}
 ];
-R.forEach(function(r,i){r.i=i});
-var rq='',rc='Todas',rt=null,cur=-1;
-var CATS=['Todas'].concat(R.map(function(r){return r.c}).filter(function(v,i,a){return a.indexOf(v)===i}));
-var tcount={};R.forEach(function(r){r.stack.forEach(function(t){tcount[t]=(tcount[t]||0)+1})});
-var TECH=Object.keys(tcount).sort(function(a,b){return tcount[b]-tcount[a]||a.localeCompare(b)}).slice(0,12);
-function folder(){return '<svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>'}
-function drawFilters(){
-  document.getElementById('fcat').innerHTML='<small>Categoria</small>'+CATS.map(function(c){return '<button type="button" class="fb" data-c="'+esc(c)+'" aria-pressed="'+(c===rc)+'">'+esc(c)+'</button>'}).join('');
-  document.getElementById('ftech').innerHTML='<small>Tecnologia</small>'+TECH.map(function(t){return '<button type="button" class="fb t" data-t="'+esc(t)+'" aria-pressed="'+(t===rt)+'">'+esc(t)+'</button>'}).join('');
-}
-function vis(r){
-  if(rc!=='Todas'&&r.c!==rc)return false;
-  if(rt&&r.stack.indexOf(rt)<0)return false;
-  if(rq){var h=(r.s+' '+r.n+' '+r.c+' '+r.o+' '+r.stack.join(' ')+' '+(r.est||'')+' '+(r.ia||'')).toLowerCase();if(h.indexOf(rq)<0)return false}
-  return true;
-}
-function drawRepo(){
-  var L=R.filter(vis);
-  document.getElementById('rcount').innerHTML='<b>'+L.length+'</b> de '+R.length+' entregas';
-  document.getElementById('repo').innerHTML=L.length?L.map(function(r){
-    return '<button type="button" class="rc" data-i="'+r.i+'"><span class="nm">'+folder()+esc(r.s)+'</span><h3>'+esc(r.n)+'</h3><p>'+esc(r.o)+'</p><span class="tech">'+r.stack.slice(0,3).map(function(t){return '<span class="tg">'+esc(t)+'</span>'}).join('')+'</span><span class="ft"><span>'+esc(r.c)+'</span><span class="sdot '+(r.st==='Entregue'?'':'ev')+'">'+esc(r.st)+'</span></span></button>';
-  }).join(''):'<div class="empty">Nenhuma entrega encontrada. Limpe a busca ou os filtros.</div>';
-}
-document.getElementById('fcat').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;rc=b.getAttribute('data-c');drawFilters();drawRepo()});
-document.getElementById('ftech').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var t=b.getAttribute('data-t');rt=(rt===t)?null:t;drawFilters();drawRepo()});
-document.getElementById('q').addEventListener('input',function(e){rq=e.target.value.trim().toLowerCase();drawRepo()});
-document.getElementById('repo').addEventListener('click',function(e){var b=e.target.closest('.rc');if(b)openD(+b.getAttribute('data-i'),b)});
-var dr=document.getElementById('drawer'),sc=document.getElementById('scrim'),lastFocus=null;
-function sec(cls,lab,body){return body?'<div class="dsec '+cls+'"><small>'+lab+'</small><p>'+esc(body)+'</p></div>':''}
-function openD(i,from){
-  var r=R[i];cur=i;if(from)lastFocus=from;
-  dr.innerHTML='<div class="dh"><div class="nm">'+esc(r.s)+'</div><h3 id="dtitle">'+esc(r.n)+'</h3><div class="meta"><span class="tg">'+esc(r.c)+'</span><span class="tg">'+esc(r.st)+'</span></div></div>'+
-  '<div class="dbody">'+sec('d','A dor',r.dor)+sec('k','Minha estratégia',r.est)+sec('s','IA como acelerador',r.ia)+sec('r','Resultado',r.res)+
-  (r.steps.length?'<div class="dsec k"><small>Como funciona</small><ol>'+r.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></div>':'')+
-  '<div class="dsec k"><small>Tecnologias</small><div class="tech" style="display:flex;flex-wrap:wrap;gap:6px">'+r.stack.map(function(t){return '<span class="tg">'+esc(t)+'</span>'}).join('')+'</div></div></div>'+
-  '<div class="dnav"><button type="button" id="dprev">Anterior</button><button type="button" id="dnext">Próxima</button><button type="button" class="x" id="dclose">Fechar</button></div>';
-  dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');
-  document.getElementById('dclose').focus();
-  dr.querySelector('.dbody').scrollTop=0;
-}
-function closeD(){dr.classList.remove('open');sc.classList.remove('open');dr.setAttribute('aria-hidden','true');cur=-1;if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}
-dr.addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;
-  if(b.id==='dclose')closeD();
-  if(b.id==='dprev')openD((cur-1+R.length)%R.length);
-  if(b.id==='dnext')openD((cur+1)%R.length);
-});
-sc.addEventListener('click',closeD);
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&cur>=0)closeD();
-  if(e.key==='ArrowRight'&&cur>=0)openD((cur+1)%R.length);
-  if(e.key==='ArrowLeft'&&cur>=0)openD((cur-1+R.length)%R.length);
-  if(e.key==='/'&&cur<0&&!/input|textarea/i.test(document.activeElement.tagName)){e.preventDefault();var q=document.getElementById('q');q.focus();q.scrollIntoView({block:'center'})}
-});
-drawFilters();drawRepo();
+var BY={};R.forEach(function(r,i){r.i=i;BY[r.s]=r});
+var CATCOL={'Agentes e IA':'var(--violet)','Ferramentas':'var(--sky)','Automação':'var(--green)','Machine learning':'var(--pink)','Dados e produto':'var(--yellow)','Dashboards':'var(--orange)','Engenharia':'var(--red)'};
 
-/* ---------- estratégia e IA ---------- */
-var ACT=[
- {t:'Diagnóstico e requisitos',m:'Entrevisto stakeholders, mapeio processos e transformo a necessidade em requisitos claros.',a:'A IA ajuda a sintetizar entrevistas e documentos, estruturar requisitos e transformar a especificação em prompt e código.',e:['automacao-gestao-pedidos','biblioteca-de-prompts']},
- {t:'Priorização e business case',m:'Estruturo o funil de mercado, o scoring e o nível de confiança para decidir onde investir.',a:'A IA acelera a pesquisa e a montagem da base, e o código garante cálculos reprodutíveis, com a regra de nunca inventar dado.',e:['portfolio-29-iniciativas']},
- {t:'Planejamento, KPIs e PMO',m:'Defino iniciativas, indicadores e metas, e conduzo a governança de prazos e entregas.',a:'A IA constrói painéis executivos em HTML e apoia a consolidação e a leitura dos dados.',e:['dashboards-executivos-html','pmo-orcamento-base-zero']},
- {t:'Eficiência operacional',m:'Aplico Lean Six Sigma e DMAIC para achar o desperdício e redesenhar o processo.',a:'A IA e a automação transformam o processo redesenhado em fluxo ponta a ponta.',e:['automacao-gestao-pedidos','atualizador-bases-streamlit']},
- {t:'Análise e geração de valor',m:'Defino a pergunta, as chaves e o critério para priorizar oportunidades.',a:'A IA gera e itera o código que cruza as bases e entrega o ranking de oportunidades.',e:['cruzamento-bases-preco','negociacao-fornecedores-ondas']},
- {t:'Monitoramento em escala',m:'Decido o que importa acompanhar, com que cadência e o que exige decisão humana.',a:'Agentes de IA e machine learning executam em escala, e o humano decide por exceção.',e:['marco-agente-regulatorio','classificador-fotos-ml']},
- {t:'Comunicação executiva',m:'Construo a narrativa: título que afirma a conclusão e só dados reais.',a:'Uma ferramenta de IA monta a apresentação no padrão executivo, sem diagramação manual.',e:['gerador-apresentacoes-ia']}
+/* caixas do pátio */
+var CRATES=[
+ {s:'marco-agente-regulatorio',l:'Marco, o agente',bg:'#FF4A36'},
+ {s:'classificador-fotos-ml',l:'10 mil fotos/semana',bg:'#FFD43B',light:1},
+ {s:'automacao-gestao-pedidos',l:'20x mais rápido',bg:'#10166B'},
+ {s:'cruzamento-bases-preco',l:'3 bases, 1 ranking',bg:'#FF8B1F'},
+ {s:'powertrain-hidrogenio',l:'Carro a H₂',bg:'#1FBF7C'},
+ {s:'gerador-apresentacoes-ia',l:'PPT no piloto automático',bg:'#FF86BE',light:1},
+ {s:'portfolio-29-iniciativas',l:'29 ideias, 1 ordem',bg:'#FFFDF8',light:1},
+ {s:'simulacao-hil',l:'Drone no loop',bg:'#8B6CFF'},
+ {s:'biblioteca-de-prompts',l:'Prompt = spec',bg:'#9CCBFF',light:1}
 ];
-var ai=0,actsEl=document.getElementById('acts'),accp=document.getElementById('accp');
-function drawAct(){
-  actsEl.innerHTML=ACT.map(function(a,i){return '<button type="button" role="tab" data-i="'+i+'" aria-selected="'+(i===ai)+'">'+esc(a.t)+'</button>'}).join('');
-  var a=ACT[ai];
-  accp.innerHTML='<div class="acc-cols"><div><small>Como eu conduzo</small><p>'+esc(a.m)+'</p></div><div><small>Como a IA acelera</small><p>'+esc(a.a)+'</p></div></div><div class="acc-ev">Evidência no repositório '+a.e.map(function(s){var r=R.filter(function(x){return x.s===s})[0];return '<button type="button" data-s="'+s+'">'+esc(s)+'</button>'}).join('')+'</div>';
+
+/* ============ MODOS ============ */
+var MODES=[
+ {k:'modo estratégia',t:'Mapeio o processo, encontro os 20% que resolvem 80% e desenho a solução antes de escrever uma linha de código.'},
+ {k:'modo builder',t:'Abro o editor, converso com a IA e entrego a ferramenta rodando: agente, modelo, automação ou painel.'}
+];
+var mt=$('#modetxt'),knob=$('#knob'),mbtns=$$('.switch button');
+function setMode(i){
+  mbtns.forEach(function(b,j){b.setAttribute('aria-pressed',j===i)});
+  var b=mbtns[i];knob.style.left=b.offsetLeft+'px';knob.style.width=b.offsetWidth+'px';
+  mt.innerHTML='<small>'+MODES[i].k+' · ambidestra por natureza</small>'+esc(MODES[i].t);
 }
-actsEl.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;ai=+b.getAttribute('data-i');drawAct()});
-accp.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var s=b.getAttribute('data-s');var r=R.filter(function(x){return x.s===s})[0];if(r)openD(r.i,b)});
-drawAct();
-/* ---------- prompts ---------- */
+mbtns.forEach(function(b,i){b.addEventListener('click',function(){setMode(i)})});
+setMode(0);
+var modeTimer=setInterval(function(){var i=mbtns[0].getAttribute('aria-pressed')==='true'?1:0;setMode(i)},5200);
+mbtns.forEach(function(b){b.addEventListener('click',function(){clearInterval(modeTimer)})});
+window.addEventListener('resize',function(){var i=mbtns[1].getAttribute('aria-pressed')==='true'?1:0;setMode(i)});
+
+/* ============ TICKER ============ */
+var TW=['agentes de IA','machine learning','vibe coding','Lean Six Sigma Black Belt','Python','hidrogênio','robótica','prompt engineering','Selenium','Streamlit','controle LQR','human-in-the-loop','dashboards','20x mais rápido'];
+var tt=TW.map(function(w){return '<span>'+esc(w)+'</span><i>✦</i>'}).join('');
+$('#tt').innerHTML=tt+tt;
+
+/* ============ GUINDASTE ============ */
+var yard=$('#yard'),trolley=$('#trolley'),cable=$('#cable'),claw=$('#claw'),hint=$('#hint');
+var RAIL=24,CLAWH=22,busy=false,held=null;
+var crateEls=CRATES.map(function(c,i){
+  var r=BY[c.s];var b=document.createElement('button');b.type='button';
+  b.className='crate'+(c.light?' lightc':' dark');b.style.background=c.bg;
+  b.style.backgroundImage='repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 9px,rgba(0,0,0,.13) 9px 12px)';
+  b.dataset.rot=((i*37)%7-3)*0.9;
+  b.innerHTML='<span class="cid"><span>JDP-'+String(i+1).padStart(2,'0')+'</span><span>'+esc(r.c)+'</span></span><span class="clab">'+esc(c.l)+'</span><span class="copen">abrir ↑</span>';
+  b.setAttribute('aria-label','Abrir caixa: '+r.n);
+  b.addEventListener('click',function(){grab(i)});
+  yard.appendChild(b);return b;
+});
+function layout(){
+  var W=yard.clientWidth,H=yard.clientHeight;
+  var small=W<520,per=small?3:(W<760?3:(W<1000?4:5));
+  var gap=Math.max(6,W*.012);
+  var cw=Math.min(210,(W-gap*(per+1))/per);var ch=Math.round(Math.max(small?70:64,cw*.48));
+  var rows=[],left=crateEls.length,r=0;
+  while(left>0){var n=Math.min(left,(r%2&&!small)?per-1:per);rows.push(n);left-=n;r++}
+  var k=0;
+  rows.forEach(function(n,ri){
+    var rowW=n*cw+(n-1)*gap,sx=(W-rowW)/2;
+    for(var j=0;j<n;j++){
+      var el=crateEls[k++];
+      el.style.width=cw+'px';el.style.height=ch+'px';
+      el.style.left=(sx+j*(cw+gap))+'px';
+      el.style.top=(H-(ri+1)*(ch+2)-4)+'px';
+      if(el!==held)el.style.transform='rotate('+el.dataset.rot+'deg)';
+    }
+  });
+}
+function grab(i){
+  if(busy)return;busy=true;hint.style.opacity=0;
+  var el=crateEls[i];held=el;
+  var x=el.offsetLeft+el.offsetWidth/2;
+  trolley.style.transform='translateX('+(x-32)+'px)';
+  var reach=Math.max(20,el.offsetTop-RAIL-CLAWH+2);
+  wait(T(720)).then(function(){cable.style.height=reach+'px';return wait(T(620))})
+  .then(function(){claw.classList.add('closed');el.classList.add('held');return wait(T(240))})
+  .then(function(){
+    var target=RAIL+CLAWH+34;
+    cable.style.height='34px';
+    el.style.transform='translateY('+(-(el.offsetTop-target))+'px) rotate(0deg)';
+    return wait(T(680));
+  }).then(function(){openBox(BY[CRATES[i].s],CRATES[i])});
+}
+function release(){
+  var el=held;if(!el){busy=false;return}
+  var reach=Math.max(20,el.offsetTop-RAIL-CLAWH+2);
+  cable.style.height=reach+'px';el.style.transform='rotate(0deg)';
+  wait(T(640)).then(function(){claw.classList.remove('closed');el.classList.remove('held');el.style.transform='rotate('+el.dataset.rot+'deg)';cable.style.height='26px';held=null;return wait(T(500))})
+  .then(function(){busy=false});
+}
+window.addEventListener('resize',layout);
+layout();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layout);
+
+/* ============ MODAL CAIXA ============ */
+var box=$('#box'),scrim=$('#scrim'),inner=$('#bxInner'),fromCrane=false,lastFocus=null,curBox=-1;
+function card(lbl,txt,c){return txt?'<div class="bx-card" style="--c:'+c+'"><small>'+lbl+'</small>'+esc(txt)+'</div>':''}
+function openBox(r,crate,focusFrom){
+  curBox=r.i;fromCrane=!!crate;lastFocus=focusFrom||document.activeElement;
+  var col=crate?crate.bg:(CATCOL[r.c]||'var(--yellow)');
+  $('#doorL').style.background=col;$('#doorR').style.background=col;
+  $('#doorL').style.backgroundImage=$('#doorR').style.backgroundImage='repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 12px,rgba(0,0,0,.16) 12px 16px)';
+  inner.innerHTML='<button type="button" class="bx-x" id="bxX" aria-label="Fechar">✕</button>'+
+   '<div class="bx-head"><div class="bx-tag"><span class="pill fill">'+esc(r.s)+'</span><span class="pill">'+esc(r.c)+'</span><span class="pill">'+esc(r.st)+'</span></div><h3 id="bxTitle">'+esc(r.n)+'</h3><p>'+esc(r.o)+'</p></div>'+
+   '<div class="bx-grid">'+card('a dor',r.dor,'var(--red)')+card('como eu pensei',r.est,'var(--blue)')+card('onde a IA entrou',r.ia||'Aqui foi engenharia raiz: controle, modelagem e gente trabalhando junto.','var(--violet)')+card('o que mudou',r.res,'var(--green)')+'</div>'+
+   (r.steps.length?'<div class="bx-flow"><ol>'+r.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></div>':'')+
+   '<div class="bx-foot"><div class="tags">'+r.stack.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</div>'+
+   '<div style="display:flex;gap:8px">'+(r.demo?'<a class="btn" href="'+r.demo+'" id="bxDemo">ver funcionando ↓</a>':'')+(!crate?'<button type="button" class="btn ghost" id="bxNext">próxima →</button>':'')+'</div></div>';
+  inner.scrollTop=0;
+  box.classList.remove('opened');scrim.classList.add('on');box.classList.add('on');
+  setTimeout(function(){box.classList.add('opened')},T(60));
+  setTimeout(function(){var x=$('#bxX');if(x)x.focus()},T(400));
+}
+function closeBox(){
+  if(!box.classList.contains('on'))return;
+  box.classList.remove('on','opened');scrim.classList.remove('on');curBox=-1;
+  if(fromCrane)release();
+  if(lastFocus&&document.contains(lastFocus))lastFocus.focus({preventScroll:true});
+}
+scrim.addEventListener('click',closeBox);
+inner.addEventListener('click',function(e){
+  var t=e.target.closest('button,a');if(!t)return;
+  if(t.id==='bxX')closeBox();
+  if(t.id==='bxDemo'){closeBox()}
+  if(t.id==='bxNext'){openBox(R[(curBox+1)%R.length],null,lastFocus)}
+});
+
+/* ============ HISTÓRIA ============ */
+var CH=[
+ {n:'06',w:'consultoria + faculdade',h:'Construindo com IA',p:'Agentes que monitoram fontes oficiais, modelos que conferem milhares de fotos, automações 20x mais rápidas e painéis feitos em pares com a IA. Ao mesmo tempo, lidero o gêmeo digital de um drone (HIL) e toco meu TCC com uma plataforma robotizada.',k:['agentes de IA','machine learning','vibe coding'],c:'',now:1},
+ {n:'05',w:'Peers Consulting',h:'Consultoria: estratégia com as mãos na massa',wide:1,p:'É onde vivo o lado business: entender o negócio do cliente, achar onde está o valor e fazer o plano sair do papel, com prazo, dono e indicador. Foi aqui que virei Black Belt em Lean Six Sigma.',l:['Planejamento estratégico com iniciativas, KPIs e governança','PMO de orçamento base zero para um grupo educacional','Portfólio de 29 produtos digitais priorizado com business cases','Negociação com fornecedores de uma rede varejista, em ondas','Fluxo de pedidos com tempo de execução 20x menor'],k:['planejamento estratégico','PMO','business cases','Lean Six Sigma'],c:'var(--orange)'},
+ {n:'04',w:'Modena e Reggio Emilia, Itália',h:'Robótica do outro lado do oceano',p:'Estudei Mecatrônica na Università di Modena e Reggio Emilia e, no ARS Control, construí uma interface em Python que integra sinais EMG a um sistema de reabilitação robótica.',k:['inglês C2','pesquisa internacional','GUI em Python'],c:'var(--yellow)'},
+ {n:'03',w:'mai 2023 a nov 2024',h:'Um carro movido a hidrogênio',p:'Na Hybrid Formula SAE, liderei o powertrain a hidrogênio: controle da célula a combustível e do motor, detecção de vazamento e desligamento de emergência.',k:['liderança','gestão de riscos','integração'],c:'var(--green)'},
+ {n:'02',w:'UFLA · pesquisa',h:'Iniciação científica',p:'Compósitos poliméricos com nanopartículas de seleneto de cobre. Aprendi a ter paciência com o método e a não confiar em resultado sem evidência.',k:['método científico','rigor com dado'],c:'var(--pink)'},
+ {n:'01',w:'Lavras, MG · UFLA',h:'Engenharia de Controle e Automação',p:'Escolhi o curso que olha pra tudo como um sistema: entrada, processo, saída e realimentação. Até hoje é assim que eu leio qualquer problema.',k:['sistemas de controle','modelagem','Python'],c:'var(--sky)'}
+];
+var track=$('#track');
+track.innerHTML=CH.map(function(c){
+  return '<article class="chap'+(c.now?' now':'')+(c.wide?' wide':'')+'" style="--c:'+c.c+'">'+(c.now?'<span class="pin">você está aqui</span>':'')+'<div class="num">'+c.n+'</div><div class="when">'+esc(c.w)+'</div><h3>'+esc(c.h)+'</h3><p>'+esc(c.p)+'</p>'+(c.l?'<ul>'+c.l.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+'<div class="kept"><small>levei comigo</small>'+c.k.map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div></article>';
+}).join('');
+var prog=$('#prog');
+function upProg(){var m=track.scrollWidth-track.clientWidth;prog.style.width=(m>0?(track.scrollLeft/m*100):100)+'%'}
+track.addEventListener('scroll',upProg,{passive:true});upProg();
+function step(d){var c=track.querySelector('.chap');var w=c?c.offsetWidth+20:400;track.scrollBy({left:d*w,behavior:reduce?'auto':'smooth'})}
+$('#sPrev').addEventListener('click',function(){step(-1)});$('#sNext').addEventListener('click',function(){step(1)});
+(function(){var down=false,sx=0,sl=0,moved=false;
+  track.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=track.scrollLeft;track.classList.add('drag')});
+  window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;track.scrollLeft=sl-dx});
+  window.addEventListener('pointerup',function(){if(!down)return;down=false;track.classList.remove('drag')});
+})();
+
+/* ============ DEMO 1: ML ============ */
+var LBL={aprovado:'Aprovado',reprovado:'Reprovado',justificado:'Justificado'};
+var COL={aprovado:'var(--green)',reprovado:'var(--red)',justificado:'var(--orange)'};
+var photo=$('#photo'),mbars=$('#mbars'),verdict=$('#verdict'),nextB=$('#nextPhoto'),chs=$$('#choices button');
+var cur=null,pid=40120,sc={n:0,you:0,agree:0};
+function rnd(a,b){return a+Math.random()*(b-a)}
+function newPhoto(){
+  pid++;
+  var p=Math.random()<.78,pr=p&&Math.random()<.72,br=Math.random()<.7;
+  if(!p){pr=Math.random()<.3}
+  var truth=!p?'reprovado':(pr&&br?'aprovado':'justificado');
+  var conf=rnd(.55,.98),right=Math.random()<.86;
+  var guess=right?truth:['aprovado','reprovado','justificado'].filter(function(x){return x!==truth})[Math.random()<.5?0:1];
+  var rest=1-conf,o=['aprovado','reprovado','justificado'].filter(function(x){return x!==guess});
+  var a=rest*rnd(.3,.7);var probs={};probs[guess]=conf;probs[o[0]]=a;probs[o[1]]=rest-a;
+  cur={p:p,pr:pr,br:br,truth:truth,guess:guess,conf:conf,probs:probs};
+  var pal=['#FF4A36','#2337FF','#1FBF7C','#FF8B1F','#8B6CFF'];var c=pal[pid%pal.length];
+  var hs=[58,70,64,74,60];
+  var html='<span class="id">#'+pid+'</span>';
+  if(br)html+='<div class="brand">MARCA</div>';
+  html+='<div class="shelf" style="top:56%"></div><div class="shelf" style="top:86%"></div>';
+  if(p){html+='<div class="prods" style="bottom:44.5%;height:24%">'+hs.map(function(h){return '<i style="height:'+h+'%;background:'+c+'"></i>'}).join('')+'</div>';
+        html+='<div class="prods" style="bottom:14.5%;height:22%">'+hs.slice(0,4).map(function(h){return '<i style="height:'+(h+10)+'%;background:'+c+';opacity:.85"></i>'}).join('')+'</div>'}
+  else{html+='<div class="prods" style="bottom:44.5%;height:20%"><i style="height:50%;background:#c9c2b2;flex:.4"></i></div>'}
+  if(pr)html+='<div class="price" style="left:'+(p?62:40)+'%;top:58%">R$ '+(Math.floor(rnd(3,30)))+',90</div>';
+  html+='<div class="stamp" id="stamp"><span></span></div>';
+  photo.innerHTML=html;
+  mbars.innerHTML=['aprovado','reprovado','justificado'].map(function(k){return '<div class="bar"><span>'+LBL[k]+'</span><span class="t"><i style="background:'+COL[k]+'"></i></span><span class="v">--</span></div>'}).join('');
+  verdict.innerHTML='<b>Sua vez.</b>Olha a foto e decide. O modelo só mostra o palpite depois, pra não te influenciar.';
+  chs.forEach(function(b){b.disabled=false});nextB.style.display='none';
+}
+function decide(v){
+  if(!cur)return;chs.forEach(function(b){b.disabled=true});
+  var st=$('#stamp');st.querySelector('span').textContent=LBL[v].toUpperCase();st.querySelector('span').style.color=COL[v];st.classList.add('on');
+  var rows=$$('.bar',mbars);['aprovado','reprovado','justificado'].forEach(function(k,i){
+    var pct=Math.round(cur.probs[k]*100);setTimeout(function(){rows[i].querySelector('i').style.width=pct+'%';rows[i].querySelector('.v').textContent=pct+'%'},T(120))});
+  sc.n++;var you=v===cur.truth,agree=v===cur.guess;if(you)sc.you++;if(agree)sc.agree++;
+  $('#sRounds').textContent=sc.n;$('#sYou').textContent=sc.you;$('#sAgree').textContent=sc.agree;
+  var why=!cur.p?'não tem produto na gôndola':(cur.truth==='aprovado'?'produto, preço e marca aparecem':'tem produto, mas falta '+(!cur.pr&&!cur.br?'preço e marca':(!cur.pr?'o preço':'a marca')));
+  var low=cur.conf<.7;
+  var msg='<b>'+(you?'Acertou! 🎯':'Quase.')+'</b>Pela regra seria <b style="display:inline">'+LBL[cur.truth]+'</b> ('+why+'). ';
+  if(low)msg+='O modelo ficou inseguro ('+Math.round(cur.conf*100)+'%), então nesse caso ele nem sugere: manda direto pra você. ';
+  else if(cur.guess!==cur.truth)msg+='O modelo errou aqui. Sua correção vira exemplo de treino na próxima rodada. ';
+  else msg+='O modelo concordou com '+Math.round(cur.conf*100)+'% de confiança. ';
+  verdict.innerHTML=msg;nextB.style.display='flex';nextB.style.justifyContent='center';
+}
+chs.forEach(function(b){b.addEventListener('click',function(){decide(b.dataset.v)})});
+nextB.addEventListener('click',newPhoto);
+newPhoto();
+var nf=new Intl.NumberFormat('pt-BR'),nf1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
+function sim(){
+  var f=+$('#rF').value,m=+$('#rM').value,s=+$('#rS').value;
+  $('#vF').textContent=nf.format(f);$('#vM').textContent=m+' s';$('#vS').textContent=s+' s';
+  var h=Math.max(0,f*(m-s)/3600);$('#vH').textContent=nf1.format(h)+' h';$('#vA').textContent='≈ '+nf1.format(h/40)+' analista'+(h/40>=2?'s':'')+' de 40 h';
+}
+['#rF','#rM','#rS'].forEach(function(id){$(id).addEventListener('input',sim)});sim();
+
+/* ============ DEMO 2: MARCO ============ */
+var ATOS=[
+ {f:'Diário oficial',t:'Portaria altera rito de outorga e reduz prazo de manifestação de 30 para 15 dias',r:'alta',c:.94},
+ {f:'Agência reguladora',t:'Consulta pública sobre regras de acesso à rede, aberta por 45 dias',r:'alta',c:.88},
+ {f:'Resenha legislativa',t:'Projeto de lei sobre incentivos setoriais aguarda parecer de comissão',r:'media',c:.81},
+ {f:'Processo administrativo',t:'Novo andamento: juntada de documento sem descrição de conteúdo',r:'media',c:.62},
+ {f:'Diário oficial',t:'Ato de nomeação de diretoria',r:'nenhuma',c:.97}
+];
+var mlog=$('#mlog'),mbul=$('#mbul'),running=false;
+function L(html){var d=document.createElement('div');d.innerHTML=html;mlog.appendChild(d);mlog.scrollTop=mlog.scrollHeight;return d}
+function runMarco(){
+  if(running)return;running=true;$('#runMarco').disabled=true;
+  mlog.innerHTML='';mbul.innerHTML='<h5>Boletim diário</h5><div class="sub">gerado pelo Marco · revisão humana antes do envio</div>';
+  var seq=[
+   function(){L('<span class="mu">$ marco --fluxo diario</span>')},
+   function(){L('<span class="hi">› planejando:</span> 4 fontes autorizadas, janela 24 h')},
+   function(){L('coletar_fonte(diario_oficial) <span class="ok">✓ 2 atos</span>')},
+   function(){L('coletar_fonte(agencia) <span class="ok">✓ 1 ato</span>')},
+   function(){L('coletar_fonte(legislativo) <span class="ok">✓ 1 ato</span>')},
+   function(){L('consultar_processo(sei) <span class="ok">✓ 1 andamento</span>')},
+   function(){L('<span class="mu">deduplicando por emissor + número + data… 0 duplicatas</span>')}
+  ];
+  ATOS.forEach(function(a){seq.push(function(){
+    var low=a.c<.7;
+    L('classificar_ato() → <span class="'+(low?'wa':'ok')+'">'+a.r+' · conf '+a.c.toFixed(2)+'</span>'+(low?' <span class="wa">⚑ revisão humana</span>':''));
+    if(a.r==='nenhuma'){L('<span class="mu">  descartado: fora dos temas monitorados</span>');return}
+    var grp=low?'rev':a.r;var id='g-'+grp;
+    if(!document.getElementById(id)){var g=document.createElement('div');g.className='grp';g.id=id;g.textContent=low?'⚑ pendências de revisão':(a.r==='alta'?'● prioridade alta':'● para acompanhar');
+      if(low){mbul.appendChild(g)}else{var rv=document.getElementById('g-rev');rv?mbul.insertBefore(g,rv):mbul.appendChild(g)}}
+    var it=document.createElement('div');it.className='bi '+grp;it.innerHTML=esc(a.t)+'<small>'+esc(a.f)+(low?' · motivo: confiança '+a.c.toFixed(2)+' &lt; 0,70':' · evidência literal anexada')+'</small>';
+    var anchor=document.getElementById(id),nx=anchor.nextSibling;
+    while(nx&&nx.classList&&nx.classList.contains('bi'))nx=nx.nextSibling;
+    mbul.insertBefore(it,nx);mbul.scrollTop=mbul.scrollHeight;
+  })});
+  seq.push(function(){L('registrar_log() <span class="ok">✓ 11 eventos</span>')});
+  seq.push(function(){L('<span class="hi">› boletim pronto.</span> 1 item aguardando o advogado responsável.');L('<span class="cur"></span>');running=false;$('#runMarco').disabled=false;$('#runMarco').textContent='↻ Rodar de novo'});
+  var k=0;(function nx(){if(k<seq.length){seq[k++]();setTimeout(nx,T(k<8?380:620))}})();
+}
+$('#runMarco').addEventListener('click',runMarco);
+
+/* ============ DEMO 3: DADOS ============ */
+var ROWS=[['Item 1042','8,90','7,45','+19,5%',88],['Item 2210','15,20','13,10','+16,0%',74],['Item 0877','4,35','3,82','+13,9%',66],['Item 3391','22,80','20,30','+12,3%',57],['Item 1560','6,10','5,55','+9,9%',43],['Item 2784','11,40','10,60','+7,5%',31]];
+var dRun=false;
+function runData(){
+  if(dRun)return;dRun=true;var btn=$('#runData');btn.disabled=true;
+  var files=$('#files'),pipe=$$('#pipe span'),tb=$('#rankb');$('#check').classList.remove('on');
+  files.classList.remove('sucked');pipe.forEach(function(s){s.className=''});tb.innerHTML='';
+  setTimeout(function(){files.classList.add('sucked')},T(100));
+  var i=0;(function nx(){
+    if(i>0)pipe[i-1].className='done';
+    if(i<pipe.length){pipe[i].className='on';i++;setTimeout(nx,T(520));return}
+    tb.innerHTML=ROWS.map(function(r,j){return '<tr style="animation-delay:'+(j*90)+'ms"><td><b>'+r[0]+'</b></td><td>R$ '+r[1]+'</td><td>R$ '+r[2]+'</td><td class="gap">'+r[3]+'</td><td><span class="sc"><i style="width:'+r[4]*0.9+'px"></i>'+r[4]+'</span></td></tr>'}).join('');
+    setTimeout(function(){$('#check').classList.add('on');files.classList.remove('sucked');dRun=false;btn.disabled=false;btn.textContent='↻ Cruzar de novo'},T(700));
+  })();
+}
+$('#runData').addEventListener('click',runData);
+
+/* ============ VIBE CODING ============ */
+var MATS=[['Controle II',4,8],['Robótica',6,8],['Sistemas Embarcados',2,8],['Eletrônica de Potência',7,8]];
+var CONVO=[
+ {v:1,me:'Quero uma página simples que mostre quantas faltas eu já tenho em cada matéria e quantas ainda posso ter.',ai:'Feito. <b>v1</b>: lista com faltas por matéria, lendo de um array que você edita.'},
+ {v:2,me:'Funciona! Agora transforma em barras: quanto já usei do limite. Pinta de vermelho quando passar de 75%.',ai:'Pronto. <b>v2</b>: barra de progresso por matéria, cor muda em 50% e em 75%.'},
+ {v:3,me:'Coloca no topo um resumo: a aula de hoje e a próxima prova. Resumo antes do detalhe.',ai:'Feito. <b>v3</b>: cabeçalho com aula do dia e próxima avaliação; barras logo abaixo.'},
+ {v:4,me:'Testei com o meu semestre de verdade por uma semana. Ficou. Pode congelar essa versão.',ai:'<b>✓ publicado.</b> Próximas ideias vão pro backlog, não pra essa versão.'}
+];
+var chat=$('#chat'),pv=$('#preview'),vbtns=$$('#vsteps [data-v]'),vstate=0,vplaying=false;
+function renderPV(v){
+  var head='<div class="bar0"><i></i><i></i><i></i><span>'+(v?(v<4?'v'+v:'v3 · em uso'):'vazio')+'</span></div>';
+  var body='';
+  if(!v)body='<div style="height:380px;display:grid;place-items:center;opacity:.45;text-align:center">A tela aparece aqui<br>conforme a conversa avança.</div>';
+  else if(v===1)body='<div class="pv pv1"><h3 style="font-family:Times New Roman,serif;font-weight:700;margin-bottom:8px">Minhas faltas</h3><ul>'+MATS.map(function(m){return '<li>'+m[0]+': '+m[1]+' faltas (pode ter mais '+(m[2]-m[1])+')</li>'}).join('')+'</ul></div>';
+  else{
+    var sum=v>=3?'<div class="pv-sum"><div><small>hoje</small><b>Robótica · 14h</b></div><div><small>próxima prova</small><b>Controle II · em 5 dias</b></div></div>':'';
+    body='<div class="pv">'+sum+'<h4 style="font-size:18px;letter-spacing:-.02em;margin-bottom:6px">Faltas no semestre</h4>'+MATS.map(function(m){var p=m[1]/m[2],c=p>.75?'var(--red)':(p>=.5?'var(--orange)':'var(--green)');return '<div class="mat"><span>'+m[0]+'</span><span class="t"><i style="width:'+(p*100)+'%;background:'+c+'"></i></span><span class="v">'+m[1]+'/'+m[2]+'</span></div>'}).join('')+'</div>'+(v===4?'<div class="stamp-ok">EM USO ✓</div>':'');
+  }
+  pv.innerHTML=head+body;
+}
+function showUpTo(v,animate){
+  vstate=v;vbtns.forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===v)});
+  chat.innerHTML='<div class="msg note">reconstituição ilustrativa do meu painel acadêmico · dados fictícios</div>';
+  CONVO.filter(function(c){return c.v<=v}).forEach(function(c){
+    chat.insertAdjacentHTML('beforeend','<div class="msg me">'+esc(c.me)+'</div><div class="msg ai">'+c.ai+'</div>');chat.scrollTop=chat.scrollHeight;
+  });
+  renderPV(v);
+}
+function play(){
+  if(vplaying)return;vplaying=true;$('#vplay').textContent='… rodando';
+  chat.innerHTML='<div class="msg note">reconstituição ilustrativa do meu painel acadêmico · dados fictícios</div>';renderPV(0);
+  var i=0;
+  (function nx(){
+    if(i>=CONVO.length){vplaying=false;$('#vplay').textContent='↻ de novo';return}
+    var c=CONVO[i++];
+    chat.insertAdjacentHTML('beforeend','<div class="msg me">'+esc(c.me)+'</div>');chat.scrollTop=chat.scrollHeight;
+    setTimeout(function(){
+      chat.insertAdjacentHTML('beforeend','<div class="typing"><i></i><i></i><i></i></div>');chat.scrollTop=chat.scrollHeight;
+      setTimeout(function(){var t=chat.querySelector('.typing');if(t)t.remove();chat.insertAdjacentHTML('beforeend','<div class="msg ai">'+c.ai+'</div>');chat.scrollTop=chat.scrollHeight;renderPV(c.v);vbtns.forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===c.v)});setTimeout(nx,T(1500))},T(1100));
+    },T(600));
+  })();
+}
+$('#vplay').addEventListener('click',play);
+vbtns.forEach(function(b){b.addEventListener('click',function(){if(!vplaying)showUpTo(+b.dataset.v)})});
+showUpTo(0);
+var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&vstate===0&&!vplaying){play();vio.disconnect()}})},{threshold:.45});
+vio.observe($('#chat'));
+
+/* ============ PROMPTS ============ */
+var WHY={
+ papel:['var(--sky)','Dou um papel com consequência. Dizer o custo do erro (falso positivo x falso negativo) muda como o modelo pesa a decisão.'],
+ identidade:['var(--sky)','Quem o agente é e, principalmente, o que ele NÃO pode fazer sozinho. Limite antes de poder.'],
+ contexto:['#c9f2df','Tudo que varia fica em {{placeholders}} delimitados. O prompt vira um template reutilizável, não um texto descartável.'],
+ objetivo:['#c9f2df','Um objetivo verificável: cadência, fontes e o que é “confiável”. Sem isso, o agente otimiza a coisa errada.'],
+ problema:['#c9f2df','O problema em três linhas, com nome para cada base. Fica fácil referenciar depois sem ambiguidade.'],
+ entrada:['#c9f2df','Digo exatamente as colunas que chegam. O modelo não precisa adivinhar formato.'],
+ ferramentas:['var(--yellow)','Ferramentas com assinatura clara: entrada e saída. O agente sabe o que pode chamar e o que esperar de volta.'],
+ contrato_de_dados:['var(--yellow)','Um contrato de dados, como em engenharia de software: colunas, tipos e a ordem de preferência das chaves.'],
+ procedimento:['var(--yellow)','Passos numerados deixam o raciocínio previsível e auditável. Repare no passo 4: o próprio modelo se revisa.'],
+ tarefa:['var(--yellow)','Tarefa em etapas, terminando numa priorização por impacto (frequência x custo do erro). Pensar como negócio, não só como dado.'],
+ requisitos:['var(--yellow)','Requisitos numerados (R1, R2…) que viram checklist de revisão do código gerado.'],
+ politica_de_decisao:['var(--yellow)','Política explícita: planejar antes de agir, tentar uma vez e escalar, nada entra sem origem.'],
+ regras_de_abstencao:['#ffd3cd','O modelo pode dizer “não sei”. null é melhor que um número inventado. E abaixo de 0,70 de confiança, humano decide.'],
+ restricoes:['#ffd3cd','Guardrails: só a tabela recebida, causa não comprovada vira “hipótese”, e a decisão do analista é a verdade.'],
+ escalonamento:['#ffd3cd','Quando o agente para e chama gente. Prazo curto, conflito entre fontes ou baixa confiança.'],
+ exemplo:['var(--pink)','Um exemplo vale mais que três parágrafos de instrução (few-shot). Ele ancora tom, formato e nível de detalhe.'],
+ formato_de_saida:['#d9d2ff','Saída em JSON validável: outro programa consome direto, sem ninguém reformatar à mão.'],
+ entrega:['#d9d2ff','Ordem da resposta: plano curto, código, testes, riscos. Assim eu reviso rápido.'],
+ criterios_de_aceite:['#c9f2df','Como eu sei que ficou pronto: linhas de entrada = cruzadas + pendentes, com teste automatizado.'],
+ auto_verificacao:['#c9f2df','Checklist final antes de entregar. Barato de pedir, caro de esquecer.']
+};
 var PROMPTS=[
-{n:'Classificador de atos regulatórios',d:'Classificação com evidência literal, abstenção explícita e saída validável. Base do agente de monitoramento.',t:`<papel>
+{n:'Classificador de atos',d:'Classificação com evidência literal, abstenção explícita e saída validável. Base do Marco.',
+ lazy:'Lê esse ato e me diz se é importante pro escritório.',bad:['Cada vez responde de um jeito','Inventa número de portaria que não existe','Texto corrido: impossível automatizar','Ninguém sabe quando confiar'],
+ t:`<papel>
 Você é analista regulatório sênior. Sua saída alimenta o boletim dos sócios de um escritório de advocacia. Um falso positivo desperdiça atenção e um falso negativo gera risco profissional.
 </papel>
 
@@ -903,7 +1061,7 @@ Você é analista regulatório sênior. Sua saída alimenta o boletim dos sócio
 Temas monitorados, com definição: {{TEMAS_E_DEFINICOES}}
 Glossário e siglas do setor: {{GLOSSARIO}}
 Ato a analisar, texto integral:
-<ato>{{TEXTO_DO_ATO}}</ato>
+«ato»{{TEXTO_DO_ATO}}«/ato»
 </contexto>
 
 <procedimento>
@@ -931,7 +1089,9 @@ Somente um objeto JSON válido, sem texto fora dele:
  "resumo":string (máx. 2 frases),"prazos":[{"descricao":string,"data":string|null}],
  "evidencia":string (citação literal, máx. 25 palavras),"confianca":number 0-1,"revisao_humana":boolean}
 </formato_de_saida>`},
-{n:'Agente orquestrador (Marco)',d:'Prompt de sistema de um agente com ferramentas, política de decisão, trilha de auditoria e escalonamento.',t:`<identidade>
+{n:'Agente Marco',d:'Prompt de sistema de um agente com ferramentas, política de decisão, trilha de auditoria e escalonamento.',
+ lazy:'Você é um agente que monitora diários oficiais e manda um resumo todo dia.',bad:['Age sozinho, sem limite','Publica item duvidoso sem perguntar','Sem log: ninguém sabe o que ele fez','Falhou? Fica em silêncio'],
+ t:`<identidade>
 Você é Marco, agente de monitoramento regulatório. Opera sob a supervisão de um advogado responsável e nunca age em nome dele sem aprovação.
 </identidade>
 
@@ -967,7 +1127,9 @@ Boletim com uma seção por fluxo, itens ordenados por relevância e um bloco fi
 <auto_verificacao>
 Antes de entregar, confirme: nenhuma duplicata, nenhuma afirmação sem origem e todos os itens de baixa confiança no bloco de revisão.
 </auto_verificacao>`},
-{n:'Especificação de cruzamento de bases',d:'Prompt de engenharia para gerar código de cruzamento e priorização, com contrato de dados e testes de aceite.',t:`<papel>
+{n:'Spec de cruzamento de bases',d:'Prompt de engenharia que gera código de cruzamento e priorização, com contrato de dados e testes de aceite.',
+ lazy:'Faz um código em Python que junta essas 3 planilhas e mostra onde o preço tá alto.',bad:['Some com as linhas que não cruzam','Cada execução dá um resultado','Sem teste: quebra com 500 mil linhas','“Preço alto” comparado com o quê?'],
+ t:`<papel>
 Engenheiro de dados sênior em Python. Priorize correção, rastreabilidade e reprodutibilidade, nesta ordem.
 </papel>
 
@@ -1001,7 +1163,9 @@ R6 Idempotência: a mesma entrada produz sempre a mesma saída.
 <entrega>
 1) Plano em até 5 linhas. 2) Código modular e comentado. 3) Testes. 4) Premissas e riscos conhecidos.
 </entrega>`},
-{n:'Auditoria de divergências do modelo',d:'Análise de causa raiz sobre casos em que o analista discordou do classificador, gerando plano de retreino.',t:`<papel>
+{n:'Auditoria do modelo',d:'Causa raiz dos casos em que o analista discordou do classificador, virando plano de retreino.',
+ lazy:'Por que o modelo errou nesses casos?',bad:['Resposta genérica sobre “mais dados”','Culpa o analista','Hipótese vendida como fato','Nenhuma ação priorizada'],
+ t:`<papel>
 Cientista de dados sênior responsável pela qualidade de um classificador de imagens com revisão humana.
 </papel>
 
@@ -1032,18 +1196,94 @@ Tabela com: id, descricao_contrapartida, sugestao_modelo, confianca, decisao_ana
 1) Tabela priorizada dos grupos. 2) Três recomendações de retreino, cada uma com critério de sucesso mensurável. 3) Riscos de viés nos dados.
 </formato_de_saida>`}
 ];
-var pt=document.getElementById('ptabs'),pd=document.getElementById('pdesc'),pc=document.getElementById('pcode'),cb=document.getElementById('copybtn'),pi=0;
-function renderPrompt(){
-  pt.innerHTML=PROMPTS.map(function(p,i){return '<button type="button" role="tab" aria-selected="'+(i===pi)+'" data-i="'+i+'">'+esc(p.n)+'</button>'}).join('');
-  pd.textContent=PROMPTS[pi].d;pc.textContent=PROMPTS[pi].t;cb.textContent='Copiar prompt';
+PROMPTS.forEach(function(p){p.t=p.t.replace(/«/g,'<').replace(/»/g,'>')});
+var pi=0,ptabs=$('#ptabs'),blocksEl=$('#blocks');
+function parse(t){var out=[],re=/<([a-z_]+)>\n?([\s\S]*?)\n?<\/\1>/g,m;while((m=re.exec(t)))out.push({tag:m[1],body:m[2]});return out}
+function drawPrompt(){
+  ptabs.innerHTML=PROMPTS.map(function(p,i){return '<button type="button" role="tab" aria-selected="'+(i===pi)+'" data-i="'+i+'">'+esc(p.n)+'</button>'}).join('');
+  var p=PROMPTS[pi];$('#pname').textContent=p.n;$('#pdesc').textContent=p.d;$('#pcopy').textContent='copiar prompt';
+  $('#lazy').innerHTML='<span class="lbl">✕ versão preguiçosa</span><q>'+esc(p.lazy)+'</q><ul>'+p.bad.map(function(b){return '<li>'+esc(b)+'</li>'}).join('')+'</ul><div class="vs-arrow">→ <b>versão de engenheira:</b> '+parse(p.t).length+' blocos, cada um resolvendo um desses problemas. Clica neles.</div>';
+  var bl=parse(p.t);
+  blocksEl.innerHTML=bl.map(function(b,i){var w=WHY[b.tag]||['#eee','Bloco de estrutura.'];return '<button type="button" class="blk'+(i===0?' open':'')+'" style="--c:'+w[0]+'"><span class="bt"><code>&lt;'+b.tag+'&gt;</code><i>'+(i===0?'fechar −':'por que isso? ＋')+'</i></span><pre>'+esc(b.body)+'</pre><span class="why">💡 '+esc(w[1])+'</span></button>'}).join('');
 }
-pt.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pi=+b.getAttribute('data-i');renderPrompt()});
-function selectPre(){var r=document.createRange();r.selectNodeContents(pc);var s=window.getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Texto selecionado, use Ctrl+C'}
-cb.addEventListener('click',function(){
-  try{navigator.clipboard.writeText(PROMPTS[pi].t).then(function(){cb.textContent='Copiado'},selectPre)}catch(e){selectPre()}
-});
-renderPrompt();
+ptabs.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pi=+b.dataset.i;drawPrompt()});
+blocksEl.addEventListener('click',function(e){var b=e.target.closest('.blk');if(!b)return;b.classList.toggle('open');var i=b.querySelector('.bt i');i.textContent=b.classList.contains('open')?'fechar −':'por que isso? ＋'});
+$('#pcopy').addEventListener('click',function(){var b=this;var txt=PROMPTS[pi].t;
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){b.textContent='copiado ✓'},function(){b.textContent='selecione e copie'})});
+drawPrompt();
 
+/* ============ DEPÓSITO ============ */
+var cat='Todas',q='';
+var CATS=['Todas'].concat(Object.keys(CATCOL));
+function drawCats(){$('#cats').innerHTML=CATS.map(function(c){return '<button type="button" data-c="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'</button>'}).join('')}
+function vis(r){if(cat!=='Todas'&&r.c!==cat)return false;if(q){var h=(r.s+' '+r.n+' '+r.c+' '+r.o+' '+r.stack.join(' ')+' '+(r.est||'')+' '+(r.ia||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');if(h.indexOf(q)<0)return false}return true}
+function drawShelf(){
+  var L=R.filter(vis);$('#count').textContent=L.length+' de '+R.length+' caixas';
+  $('#shelf').innerHTML=L.length?L.map(function(r){return '<button type="button" class="mini" data-i="'+r.i+'" style="--c:'+(CATCOL[r.c]||'var(--yellow)')+'"><span class="lid"><span>JDP-'+String(r.i+1).padStart(2,'0')+'</span><span>'+esc(r.c)+'</span></span><span class="bd"><h4>'+esc(r.n)+'</h4><p>'+esc(r.o)+'</p><span class="tags">'+r.stack.slice(0,3).map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</span><span class="ft"><span class="st'+(r.st==='Entregue'?'':' ev')+'">'+esc(r.st)+'</span><span>abrir →</span></span></span></button>'}).join(''):'<div class="nores">Nenhuma caixa com isso. Tenta “python” ou “agente”.</div>';
+}
+$('#cats').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cat=b.dataset.c;drawCats();drawShelf()});
+$('#q').addEventListener('input',function(e){q=e.target.value.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');drawShelf()});
+$('#shelf').addEventListener('click',function(e){var b=e.target.closest('.mini');if(b)openBox(R[+b.dataset.i],null,b)});
+drawCats();drawShelf();
+
+/* ============ FORA DA CAIXA ============ */
+var FACTS=[
+ {e:'🌍',f:'Amo viajar. E voltar com histórias.',b:'Já passei um mês fazendo voluntariado na Albânia. E estudei Mecatrônica em Modena, na Itália. Mala pronta é meu estado natural.',c:'var(--sky)'},
+ {e:'🐶',f:'Tenho 5 cachorros. E 1 gato.',b:'Seis pets no total. Coordenar essa turma também conta como gestão de stakeholders.',c:'var(--yellow)'},
+ {e:'🗣️',f:'Falo inglês. E tô aprendendo mais duas.',b:'Inglês fluente (C2). Faço aula de italiano e de espanhol, as duas em desenvolvimento. Ciao e hola já saem sem esforço.',c:'#c9f2df'},
+ {e:'🥋',f:'Sou faixa preta.',b:'Em Lean Six Sigma. Black Belt. Desperdício em processo não passa por mim.',c:'var(--orange)'},
+ {e:'⌨️',f:'Esse site tem um segredo.',b:'Aperta T em qualquer lugar e digita help. Ou clica no botão de terminal lá em cima.',c:'#ffd3cd'}
+];
+$('#facts').innerHTML=FACTS.map(function(f){return '<button type="button" class="fact" style="--c:'+f.c+'" aria-label="Virar carta: '+esc(f.f)+'"><span class="fi"><span class="ff"><span class="em">'+f.e+'</span><b>'+esc(f.f)+'</b><small>clica pra virar ↻</small></span><span class="fb"><small>a verdade é que…</small>'+esc(f.b)+'</span></span></button>'}).join('');
+$('#facts').addEventListener('click',function(e){var b=e.target.closest('.fact');if(b)b.classList.toggle('on')});
+
+/* ============ CONTATO ============ */
+$('#copyMail').addEventListener('click',function(){var b=this;(navigator.clipboard?navigator.clipboard.writeText('juliadrpacheco@gmail.com'):Promise.reject()).then(function(){b.textContent='copiado ✓'},function(){b.textContent='juliadrpacheco@gmail.com'})});
+
+/* ============ TERMINAL ============ */
+var term=$('#term'),tout=$('#tout'),tin=$('#tin');
+function P(h){tout.insertAdjacentHTML('beforeend',h+'\n');tout.scrollTop=tout.scrollHeight}
+var CMDS={
+ help:function(){P('<span class="y">comandos:</span>\n  sobre       quem é a julia\n  projetos    lista as caixas\n  abrir N     abre a caixa N (ex: abrir 1)\n  stack       ferramentas do dia a dia\n  marco       roda o agente\n  contato     como falar comigo\n  cafe        ☕\n  clear       limpa\n  exit        fecha')},
+ sobre:function(){P('Julia Duarte. Engenheira de Controle e Automação (UFLA, dez/2027),\nconsultora de estratégia e construtora de coisas com IA.\nAmbidestra: metade estratégia, metade builder.\nAma viajar, fala inglês, estuda italiano e espanhol\ne tem 5 cachorros e 1 gato.')},
+ projetos:function(){P(R.map(function(r,i){return '  <span class="p">'+String(i+1).padStart(2,'0')+'</span> '+esc(r.s)}).join('\n')+'\n<span class="y">dica:</span> abrir 1')},
+ stack:function(){P('Python · Streamlit · Selenium · LLMs (Claude) · HTML/CSS/JS\nMetabase · Excel avançado · Git · Lean Six Sigma · DMAIC · controle')},
+ contato:function(){P('juliadrpacheco@gmail.com\nlinkedin.com/in/julia-duarte-5a3a32286')},
+ cafe:function(){P('     ( (\n      ) )\n   ........\n   |      |]\n   \\      /\n    `----\'\n<span class="y">café passado. agora sim dá pra codar.</span>')},
+ marco:function(){P('<span class="p">› levando você até o Marco…</span>');setTimeout(function(){closeTerm();document.getElementById('demo-marco').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(runMarco,T(900))},T(500))},
+ clear:function(){tout.innerHTML=''},
+ exit:function(){closeTerm()},
+ sudo:function(){P('<span class="r">permissão negada.</span> brincadeira. manda um e-mail que eu respondo 😄')},
+ ls:function(){CMDS.projetos()}
+};
+function run(cmd){
+  P('<span class="p">❯</span> '+esc(cmd));
+  var a=cmd.trim().toLowerCase().split(/\s+/),c=a[0];
+  if(!c)return;
+  if(c==='abrir'||c==='open'){var n=parseInt(a[1],10);if(n>=1&&n<=R.length){P('abrindo caixa '+n+'…');closeTerm();openBox(R[n-1],null,$('#openTerm'))}else P('<span class="r">use: abrir 1 até abrir '+R.length+'</span>');return}
+  if(CMDS[c])CMDS[c]();else P('<span class="r">comando não encontrado:</span> '+esc(c)+'. digita <span class="y">help</span>');
+}
+function openTerm(){term.classList.add('on');if(!tout.innerHTML)P('<span class="y">bem-vinda(o) ao terminal da julia.</span> digita <span class="p">help</span>.');setTimeout(function(){tin.focus()},50)}
+function closeTerm(){term.classList.remove('on')}
+$('#openTerm').addEventListener('click',function(){term.classList.contains('on')?closeTerm():openTerm()});
+$('#closeTerm').addEventListener('click',closeTerm);
+$('#tform').addEventListener('submit',function(e){e.preventDefault();var v=tin.value;tin.value='';run(v)});
+
+/* ============ TECLADO ============ */
+document.addEventListener('keydown',function(e){
+  var typing=/input|textarea/i.test(document.activeElement.tagName);
+  if(e.key==='Escape'){if(box.classList.contains('on'))closeBox();else if(term.classList.contains('on'))closeTerm()}
+  if(typing)return;
+  if((e.key==='t'||e.key==='T')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();openTerm()}
+  if(e.key==='/'){e.preventDefault();var qq=$('#q');qq.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});qq.focus({preventScroll:true})}
+});
+
+/* ============ NAV + REVEAL ============ */
+var nav=$('#nav'),ly=0;
+window.addEventListener('scroll',function(){var y=window.scrollY;nav.classList.toggle('hide',y>ly&&y>300);ly=y},{passive:true});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+$$('.reveal').forEach(function(el){io.observe(el)});
+})();
 </script>
 </body>
 </html>
