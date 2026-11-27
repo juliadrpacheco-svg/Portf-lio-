@@ -62,12 +62,10 @@ nav.top.hide{transform:translateY(-120%)}
 .modetxt{font-size:16px;line-height:1.45;min-height:72px;opacity:.95}
 .modetxt small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;opacity:.65;margin-bottom:4px;text-transform:uppercase}
 @media(max-width:860px){.hero-head{grid-template-columns:1fr}.modes{justify-self:start}}
-@media(max-width:520px){#topo{min-height:auto}.stage{min-height:430px;flex:none}.crate{padding:7px 8px}.crate .cid span:last-child{display:none}.crate .clab{font-size:12.5px}.hint{font-size:10.5px}.bigname{top:30px}}
+@media(max-width:520px){#topo{min-height:auto}.stage{min-height:430px;flex:none}.crate{padding:8px 9px}.crate .cid span:last-child,.crate .copen{display:none}.crate .clab{font-size:12.5px}.hint{font-size:10.5px}}
 
 .stage{position:relative;flex:1;width:100%;min-height:520px;margin-top:10px}
-.bigname{position:absolute;left:0;right:0;top:46px;text-align:center;font-weight:800;font-size:clamp(120px,27vw,390px);line-height:.8;letter-spacing:-.06em;color:#fff;user-select:none;z-index:1;white-space:nowrap}
-.bigname span{display:inline-block;transition:transform .5s var(--ease),color .3s}
-.bigname span:hover{transform:translateY(-.08em) rotate(-4deg);color:var(--yellow)}
+.stage.wrap{max-width:1480px;padding:0}
 .yard{position:absolute;inset:0;z-index:2}
 .rail{position:absolute;left:-20px;right:-20px;top:0;height:14px;background:repeating-linear-gradient(90deg,#d9dcef 0 26px,#b9bedc 26px 30px);box-shadow:0 4px 0 rgba(0,0,0,.18)}
 .trolley{position:absolute;top:0;left:0;width:64px;display:flex;flex-direction:column;align-items:center;transform:translateX(40px);transition:transform .7s var(--ease);z-index:6;pointer-events:none}
@@ -81,12 +79,14 @@ nav.top.hide{transform:translateY(-120%)}
 .claw b:last-child{right:6px;transform:rotate(-22deg);transform-origin:top}
 .claw.closed b:first-child{transform:rotate(0)}
 .claw.closed b:last-child{transform:rotate(0)}
-.crate{position:absolute;border-radius:7px;color:#fff;text-align:left;padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .6s var(--ease),filter .2s,box-shadow .25s;box-shadow:0 10px 0 rgba(0,0,0,.18);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.0) 0 9px,rgba(0,0,0,.13) 9px 12px);border:3px solid rgba(0,0,0,.25);z-index:3;overflow:hidden}
+.crate{position:absolute;border-radius:10px;color:#fff;text-align:left;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .6s var(--ease),filter .2s,box-shadow .25s;box-shadow:0 14px 0 rgba(0,0,0,.2),0 22px 40px rgba(0,0,0,.22);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.0) 0 9px,rgba(0,0,0,.13) 9px 12px);border:3px solid rgba(0,0,0,.25);z-index:3;overflow:hidden}
 .crate:before{content:"";position:absolute;inset:0;border:2px solid rgba(255,255,255,.18);border-radius:4px;pointer-events:none}
-.crate .cid{font-family:var(--mono);font-size:10px;opacity:.85;letter-spacing:.06em;display:flex;justify-content:space-between}
-.crate .clab{font-weight:800;font-size:clamp(13px,1.45vw,19px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}
-.crate .copen{font-family:var(--mono);font-size:10px;position:absolute;right:8px;bottom:6px;opacity:0;transition:opacity .2s}
+.crate .cid{font-family:var(--mono);font-size:12px;opacity:.85;letter-spacing:.06em;display:flex;justify-content:space-between;gap:8px;white-space:nowrap}
+.crate .cid span:last-child{overflow:hidden;text-overflow:ellipsis}
+.crate .clab{font-weight:800;font-size:clamp(15px,2.1vw,30px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}
+.crate .copen{font-family:var(--mono);font-size:12px;position:absolute;right:12px;bottom:10px;opacity:0;transition:opacity .2s}
 .crate:hover{filter:brightness(1.08)}
+.crate:not(.held):hover{transform:translateY(-6px) rotate(0deg)!important}
 .crate:hover .copen{opacity:.9}
 .crate.held{z-index:7;box-shadow:0 30px 30px rgba(0,0,0,.25)}
 .crate.dark{color:#fff}.crate.lightc{color:var(--ink)}
@@ -441,7 +441,6 @@ footer b{color:var(--paper)}
   </div>
 
   <div class="stage wrap" id="stage">
-    <div class="bigname" aria-hidden="true"><span>J</span><span>U</span><span>L</span><span>I</span><span>A</span></div>
     <div class="yard" id="yard">
       <div class="rail"></div>
       <div class="trolley" id="trolley"><div class="car"></div><div class="cable" id="cable"></div><div class="claw" id="claw"><b></b><b></b></div></div>
@@ -766,18 +765,21 @@ var crateEls=CRATES.map(function(c,i){
 function layout(){
   var W=yard.clientWidth,H=yard.clientHeight;
   var small=W<520,per=small?3:(W<760?3:(W<1000?4:5));
-  var gap=Math.max(6,W*.012);
-  var cw=Math.min(210,(W-gap*(per+1))/per);var ch=Math.round(Math.max(small?70:64,cw*.48));
+  var gap=Math.max(8,W*.016);
+  var cw=Math.min(320,(W-gap*(per+1))/per);var ch=Math.round(Math.max(small?84:90,cw*.6));
+  var maxRows=Math.ceil(crateEls.length/per)+1;
+  if(maxRows*(ch+2)>H-90){ch=Math.max(small?70:64,Math.floor((H-90)/maxRows)-2)}
   var rows=[],left=crateEls.length,r=0;
   while(left>0){var n=Math.min(left,(r%2&&!small)?per-1:per);rows.push(n);left-=n;r++}
-  var k=0;
+  var k=0,stackH=rows.length*(ch+2),free=H-110-stackH,lift=Math.max(0,free*.45);
   rows.forEach(function(n,ri){
     var rowW=n*cw+(n-1)*gap,sx=(W-rowW)/2;
     for(var j=0;j<n;j++){
       var el=crateEls[k++];
       el.style.width=cw+'px';el.style.height=ch+'px';
+      el.querySelector('.clab').style.fontSize=Math.max(13,Math.min(30,cw*.1))+'px';
       el.style.left=(sx+j*(cw+gap))+'px';
-      el.style.top=(H-(ri+1)*(ch+2)-4)+'px';
+      el.style.top=(H-(ri+1)*(ch+2)-4-lift)+'px';
       if(el!==held)el.style.transform='rotate('+el.dataset.rot+'deg)';
     }
   });
